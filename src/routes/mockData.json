@@ -1,0 +1,202 @@
+[
+    {
+        "id": 1,
+        "nameOfBook": "aaa",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 1000,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 2,
+        "nameOfBook": "bbb",
+        "nameOfAuthor": "dgfgdfgdfg",
+        "subtitle": "asdrtrete",
+        "publishing": "gnjgngnjg",
+        "publisher": "ertretert",
+        "price": 2000,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 3,
+        "nameOfBook": "ccc",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 3000,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 4,
+        "nameOfBook": "ddd",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 3430,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 5,
+        "nameOfBook": "eee",
+        "nameOfAuthor": "nnhnhnhnhnh",
+        "subtitle": "asddsdsdssd",
+        "publishing": "cccccccccc",
+        "publisher": "bbbbbbbbb",
+        "price": 500,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 6,
+        "nameOfBook": "fff",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 450,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 7,
+        "nameOfBook": "ggg",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 6200,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 8,
+        "nameOfBook": "hhh",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 3000,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 9,
+        "nameOfBook": "iii",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 7000,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 10,
+        "nameOfBook": "jjj",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 1500,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 11,
+        "nameOfBook": "kkk",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 1000,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 12,
+        "nameOfBook": "lll",
+        "nameOfAuthor": "dgfgdfgdfg",
+        "subtitle": "asdrtrete",
+        "publishing": "gnjgngnjg",
+        "publisher": "ertretert",
+        "price": 2000,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 13,
+        "nameOfBook": "mmm",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 3000,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 14,
+        "nameOfBook": "nnn",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 3430,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 15,
+        "nameOfBook": "ooo",
+        "nameOfAuthor": "nnhnhnhnhnh",
+        "subtitle": "asddsdsdssd",
+        "publishing": "cccccccccc",
+        "publisher": "bbbbbbbbb",
+        "price": 500,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 16,
+        "nameOfBook": "ppp",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 450,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 17,
+        "nameOfBook": "qqq",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 6200,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 18,
+        "nameOfBook": "rrr",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 3000,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 19,
+        "nameOfBook": "sss",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 7000,
+        "numberOfBooks": 100
+    },
+    {
+        "id": 20,
+        "nameOfBook": "ttt",
+        "nameOfAuthor": "qwewqe",
+        "subtitle": "asd",
+        "publishing": "kjkfllkhg",
+        "publisher": "bnmcbm",
+        "price": 1500,
+        "numberOfBooks": 100
+    }
+]
