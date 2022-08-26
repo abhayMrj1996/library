@@ -83,6 +83,8 @@ function StudentLibrary() {
       {page} of 10
       <button onClick={() => clickNext()}>next</button>
       <br />
+      <br />
+      
 
     </div>
   );

@@ -1,8 +1,9 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { subtractBookQuantity } from "../Book-Library/bookLibraryReducer";
 import { addIssueDataToStudent } from "../student-List/StudentListReducers";
 import { addBookIssueDataInStudentList } from "../issueBookList/issueBookListReducer";
+// import { returnBookToLibrary } from "../Book-Library/bookLibraryReducer"
 
 function IssueBook() {
   const dispatch = useDispatch();
@@ -13,6 +14,18 @@ function IssueBook() {
     nameOfBook: "",
     issuedBookQuantity: "",
   });
+  const [returnData, setReturnData] = useState({
+    nameOfStudent: "",
+    nameOfBook: ""
+  })
+
+  // const handleReturnData =(e)=>{
+  //   const { name, value } = e.target;
+  //   const EmptyInput = { ...returnData };
+  //   EmptyInput[name] = value;
+  //   setReturnData(EmptyInput);
+
+  // }
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +42,10 @@ function IssueBook() {
       dispatch(addIssueDataToStudent(issuedData));
       dispatch(addBookIssueDataInStudentList(issuedData));
     };
+    // const handleReturnSubmit=(e)=>{
+    //   e.preventDefault();
+    //   dispatch(returnBookToLibrary(returnData));
+    // }
   
   return (
     <div>
@@ -69,6 +86,7 @@ function IssueBook() {
             <th>STUDENT</th>
             <th>ISSued book</th>
             <th>Quantity</th>
+            <th>RETURN BOOK</th>
           </tr>
         </thead>
         <tbody>
@@ -77,21 +95,14 @@ function IssueBook() {
               <td>{data.nameOfStudent}</td>
               <td>{data.nameOfBook}</td>
               <td>{data.issuedBookQuantity}</td>
+              <td><button>return</button></td>
             </tr>
           ))}
         </tbody>
       </table>
       <br />
       <br />
-      <h2>return book</h2>
-      <label>STUDENT NAME:</label>
       
-      <input></input>
-      <br /><br />
-      
-      <label>STUDENT NAME:</label>
-      <input></input>
-
     </div>
   );
 }
