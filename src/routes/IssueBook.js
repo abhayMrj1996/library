@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { subtractBookQuantity } from "../Book-Library/bookLibraryReducer";
-// import { addIssueDataToStudent } from "../student-List/StudentListReducers";
+import { addIssueDataToStudent } from "../student-List/StudentListReducers";
 import { addBookIssueDataInStudentList } from "../issueBookList/issueBookListReducer";
 
 function IssueBook() {
   const dispatch = useDispatch();
   const {initialIssueBookDataArray}=useSelector((state) => state.issuedataArray)
- console.log(initialIssueBookDataArray);
+  
   const [issuedData, setIssuedData] = useState({
     nameOfStudent: "",
     nameOfBook: "",
@@ -26,7 +26,7 @@ function IssueBook() {
         e.preventDefault();
 
       dispatch(subtractBookQuantity(issuedData));
-      // dispatch(addIssueDataToStudent(issuedData));
+      dispatch(addIssueDataToStudent(issuedData));
       dispatch(addBookIssueDataInStudentList(issuedData));
     };
   
@@ -72,8 +72,8 @@ function IssueBook() {
           </tr>
         </thead>
         <tbody>
-          {initialIssueBookDataArray.map((data)=>(
-            <tr>
+          {initialIssueBookDataArray.map((data,index)=>(
+            <tr key={index}>
               <td>{data.nameOfStudent}</td>
               <td>{data.nameOfBook}</td>
               <td>{data.issuedBookQuantity}</td>
@@ -81,6 +81,16 @@ function IssueBook() {
           ))}
         </tbody>
       </table>
+      <br />
+      <br />
+      <h2>return book</h2>
+      <label>STUDENT NAME:</label>
+      
+      <input></input>
+      <br /><br />
+      
+      <label>STUDENT NAME:</label>
+      <input></input>
 
     </div>
   );

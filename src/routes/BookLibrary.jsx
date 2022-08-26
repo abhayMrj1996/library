@@ -7,19 +7,17 @@ import { useSelector,} from "react-redux";
 function BookLibrary() {
 
   const displayBookData = useSelector((state) => state.book.initialBookList);
-  // const [filteredData,setFilteredData]=useState([]);
-  const [totalStudentData,setTotalStudentData]=useState(displayBookData);
-  // const [searchState,setSearchState]=useState(false);
+
+  const [totalStudentData,setTotalStuentData]=useState([...displayBookData]);
+ 
 
   // search book
-  // const handleSearchBook =(e) =>{    
-  // const {value}=e.target;  
-  // const reqBook = displayBookData.find((data)=>data.nameOfBook===value);
-  // console.log(reqBook); 
-  // setTotalStudentData(reqBook);
-  // setSearchState(true);
- 
-  // }
+  const handleSearchBook =(e) =>{    
+  const {value}=e.target;  
+  const reqBook = displayBookData.filter((data)=>data.nameOfBook.includes(value));
+  
+  setTotalStuentData(reqBook); 
+  }
   
   
   //pagination
@@ -53,8 +51,8 @@ function BookLibrary() {
         </Link>
         <Outlet />
       </main>
-      {/* <label>SEARCH BOOK:</label>
-      <input type='text' name='searchBar' placeholder='enter name of book...' onChange={handleSearchBook}></input> */}
+      <label>SEARCH BOOK:</label>
+      <input type='text' name='searchBar' placeholder='enter name of book...' onChange={handleSearchBook}></input>
       <table>
         <thead>
           <tr>
@@ -69,8 +67,9 @@ function BookLibrary() {
             <th>Remove</th>
           </tr>
         </thead>
+        
         <tbody>
-          {pageData.map((paginationData) => (
+          { pageData.map((paginationData) => (
             <tr key={paginationData.id}>
               <td>{paginationData.id}</td>
               <td>{paginationData.nameOfBook} </td>
@@ -83,6 +82,7 @@ function BookLibrary() {
             </tr>
           ))}
         </tbody>
+       
         
       </table>
       <br />
