@@ -1,11 +1,12 @@
 
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { Link, Outlet } from "react-router-dom";
-import { useSelector,} from "react-redux";
+import { useSelector,useDispatch} from "react-redux";
+import {deleteRow} from "../Book-Library/bookLibraryReducer";
 
 
 function BookLibrary() {
-
+  const dispatch = useDispatch();
   const displayBookData = useSelector((state) => state.book.initialBookList);
 
   const [totalStudentData,setTotalStuentData]=useState([...displayBookData]);
@@ -24,7 +25,10 @@ function BookLibrary() {
   const [page,setPage]=useState(1);
   let A = page * 5; 
   let B = A - 5;
-  const pageData = totalStudentData.slice(B, A);
+
+  useEffect(()=>{
+
+  },[displayBookData])
   
   const clickPrev = () => {
     const pageCount = page >= 2 ? page - 1 : page;
@@ -33,6 +37,17 @@ function BookLibrary() {
   const clickNext = () => {
     const pageCount = page <= Math.ceil(totalStudentData.length / 5)-1 ? page + 1 : page;
     setPage(pageCount);
+  }
+
+  //delete
+  const handleDelete = (rowId) =>{
+    
+   const newBookList=[...displayBookData];
+   const index = newBookList.findIndex((deleteID)=>deleteID.id===rowId);
+   newBookList.splice(index,1);
+   
+   dispatch(deleteRow(newBookList))
+   
   }
 
   
@@ -69,7 +84,7 @@ function BookLibrary() {
         </thead>
         
         <tbody>
-          { pageData.map((paginationData) => (
+          {!!pageData.length && pageData.map((paginationData) => (
             <tr key={paginationData.id}>
               <td>{paginationData.id}</td>
               <td>{paginationData.nameOfBook} </td>
@@ -79,6 +94,7 @@ function BookLibrary() {
               <td>{paginationData.price}</td>
               <td>{paginationData.publisher}</td>
               <td>{paginationData.numberOfBooks}</td>
+              <td><button onClick={()=>handleDelete(paginationData.id)}>Delete</button></td>
             </tr>
           ))}
         </tbody>
