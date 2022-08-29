@@ -12,21 +12,17 @@ function StudentLibrary() {
     if(splitName.length<=1){
       const reqStudent = displayStudentData.filter((data) =>
      data.first_name.toLowerCase().includes(splitName[0].toLowerCase()))
-    console.log("1",reqStudent)
-    setTotalStuentData(reqStudent); }
-    
+     setTotalStuentData(reqStudent); 
+    }    
     else{
     const reqStudent = displayStudentData.filter((data) =>
      data.first_name.toLowerCase().includes(splitName[0].toLowerCase()) 
      &&
      data.last_name.toLowerCase().includes(splitName[1].toLowerCase()));
-    console.log("2",reqStudent);
-    setTotalStuentData(reqStudent);
+     setTotalStuentData(reqStudent);
   }
     
-  }
-  console.log("total",totalStudentData);
-  
+  } 
 
   const [page, setPage] = useState(1);
 

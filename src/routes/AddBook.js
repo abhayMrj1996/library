@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import {addBookToLibrary} from "../Book-Library/bookLibraryReducer";
 
 
 function AddBook(){
   const dispatch = useDispatch();
+  const {initialBookList} = useSelector((state)=> state.book);
   const [newBook,setNewBook]=useState({
-        id: 18,
+        id: "",
         nameOfBook: "",
         nameOfAuthor: "",
         subtitle: "",
@@ -19,6 +20,8 @@ function AddBook(){
     const { name, value } = e.target;
     const EmptyInput = { ...newBook };
     EmptyInput[name] = value;
+    console.log(initialBookList.length);
+    EmptyInput.id = initialBookList.length + 1
     setNewBook(EmptyInput);
 
     }
@@ -33,13 +36,6 @@ function AddBook(){
      <form onSubmit={handleAddFormSubmit}>
       <h2 class="font-extrabold text-center">Book entries</h2>
       
-        <input
-          type="text"
-          name="id"
-          placeholder="ID"
-          onChange={handleAddFormChange}
-          required
-        ></input>
         <br />
         <br />
         <input

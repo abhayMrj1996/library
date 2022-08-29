@@ -1,4 +1,4 @@
-import { ADDBOOK,SUBTRACTISSUEBOOK,RETURNDATA,DELETEROW } from "./bookLibraryActions";
+import { ADDBOOK,SUBTRACTISSUEBOOK,RETURNDATA,DELETEROW,ADD_RETURN_BOOK } from "./bookLibraryActions";
 import BookData from '../routes/mockData.json';
 
 // AcTIONS
@@ -31,6 +31,13 @@ export const deleteRow = newBookList =>{
     }
 
 }
+export const addReturnedBook=return_data=>{
+    return{
+        type: ADD_RETURN_BOOK,
+        payload: return_data
+
+    }
+}
 
 // FIRST STATE
 const initialState={
@@ -38,7 +45,7 @@ const initialState={
 }
 
 export const bookLibraryReducer = (state=initialState, action) =>{
-    console.log(action)
+   
 
     switch(action.type){
         case ADDBOOK: return{
@@ -53,7 +60,7 @@ export const bookLibraryReducer = (state=initialState, action) =>{
             
         }
         case SUBTRACTISSUEBOOK:
-            const chgContacts = [...BookData];
+            const chgContacts = [...state.initialBookList];
             const reqBook = chgContacts.find(
                 (no) => no.nameOfBook === action.payload.nameOfBook
               );
@@ -96,6 +103,9 @@ export const bookLibraryReducer = (state=initialState, action) =>{
                 ...state,
                 initialBookList:filteredListAfterReturn
 
+            }
+            case ADD_RETURN_BOOK: return{
+                
             }
         default: return state
     }

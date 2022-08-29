@@ -8,8 +8,7 @@ import {deleteRow} from "../Book-Library/bookLibraryReducer";
 function BookLibrary() {
   const dispatch = useDispatch();
   const displayBookData = useSelector((state) => state.book.initialBookList);
-
-  const [totalStudentData,setTotalStuentData]=useState([...displayBookData]);
+  const [totalBookData,setTotalBookData]=useState([...displayBookData]);
  
 
   // search book
@@ -17,7 +16,7 @@ function BookLibrary() {
   const {value}=e.target;  
   const reqBook = displayBookData.filter((data)=>data.nameOfBook.includes(value));
   
-  setTotalStuentData(reqBook); 
+  setTotalBookData(reqBook); 
   }
   
   
@@ -25,9 +24,12 @@ function BookLibrary() {
   const [page,setPage]=useState(1);
   let A = page * 5; 
   let B = A - 5;
+  let pageData=totalBookData.slice(B,A);
+  
 
   useEffect(()=>{
-
+    
+    setTotalBookData(displayBookData)
   },[displayBookData])
   
   const clickPrev = () => {
@@ -35,7 +37,7 @@ function BookLibrary() {
     setPage(pageCount);
   };
   const clickNext = () => {
-    const pageCount = page <= Math.ceil(totalStudentData.length / 5)-1 ? page + 1 : page;
+    const pageCount = page <= Math.ceil(totalBookData.length / 5)-1 ? page + 1 : page;
     setPage(pageCount);
   }
 
@@ -103,7 +105,7 @@ function BookLibrary() {
       </table>
       <br />
     <button onClick={()=>clickPrev()}>prev</button>
-    {page} of 10
+    {page} of {Math.ceil(totalBookData.length / 5)}
     <button  onClick={()=>clickNext()}>next</button>
       
       

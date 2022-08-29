@@ -24,24 +24,23 @@ const initialState = {
 export const studentListReducer = (state = initialState, action) => {
     switch (action.type) {
         case TOTALISSUEDATAINSTUDENT:
-            const chgDataStudent = [...DataStudent];
-            const studentSplitname = action.payload.nameOfStudent.split("\t");
-            const reqStudent = chgDataStudent.find((data)=>data.first_name===studentSplitname[0] && data.last_name===studentSplitname[1]);
+            const chgDataStudent = [...state.initialStudentData];
+            const studentSplitname = action.payload.nameOfStudent.split(" ");
+            const reqStudent = chgDataStudent.find((data) => data.first_name === studentSplitname[0] && data.last_name === studentSplitname[1]);
             const tempStudent = {
                 ...reqStudent,
                 totalBookIssuedTo: parseFloat(reqStudent.totalBookIssuedTo) + parseFloat(action.payload.issuedBookQuantity),
-                totalbooknameIssuedTo: reqStudent.totalbooknameIssuedTo +" "+action.payload.nameOfBook
+                totalbooknameIssuedTo: reqStudent.totalbooknameIssuedTo + " " + action.payload.nameOfBook
             }
-            console.log(tempStudent);
             const otherStudent = chgDataStudent.filter(
-                (data) => data.first_name!==studentSplitname[0] && data.last_name!==studentSplitname[1]
-              );
-              console.log(otherStudent)
-            const finalStudentList=[...otherStudent,tempStudent];
+                (data) => data.first_name !== studentSplitname[0] && data.last_name !== studentSplitname[1]
+            );
+           
+            const finalStudentList = [...otherStudent, tempStudent];
             const sortList = finalStudentList.sort((a, b) => a.id - b.id);
             return {
                 ...state,
-                initialStudentData:sortList
+                initialStudentData: sortList
 
             }
         default: return state
