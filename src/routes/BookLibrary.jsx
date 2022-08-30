@@ -3,7 +3,7 @@ import React,{useState,useEffect} from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useSelector,useDispatch} from "react-redux";
 import {deleteRow} from "../Book-Library/bookLibraryReducer";
-
+import Button from '@mui/material/Button';
 
 function BookLibrary() {
   const dispatch = useDispatch();
@@ -96,7 +96,7 @@ function BookLibrary() {
               <td>{paginationData.price}</td>
               <td>{paginationData.publisher}</td>
               <td>{paginationData.numberOfBooks}</td>
-              <td><button onClick={()=>handleDelete(paginationData.id)}>Delete</button></td>
+              <td><Button onClick={()=>handleDelete(paginationData.id)} variant="contained">Delete</Button></td>
             </tr>
           ))}
         </tbody>
@@ -104,9 +104,9 @@ function BookLibrary() {
         
       </table>
       <br />
-    <button onClick={()=>clickPrev()}>prev</button>
+    <Button onClick={()=>clickPrev()} variant="contained">prev</Button>
     {page} of {Math.ceil(totalBookData.length / 5)}
-    <button  onClick={()=>clickNext()}>next</button>
+    <Button  onClick={()=>clickNext()} variant="contained">next</Button>
       
       
     </div>

@@ -56,8 +56,8 @@ function StudentLibrary() {
             <th>Last Name</th>
             <th>Email</th>
             <th>Gender</th>
-            <th>ISSUED BOOK</th>
-            <th>QUANTITY OF TOTAL BOOK</th>
+            <th>TOTAL ISSUED BOOK</th>
+            <th>NAME OF BOOKS</th>
           </tr>
         </thead>
         <tbody>
@@ -69,7 +69,7 @@ function StudentLibrary() {
               <td>{paginationData.email}</td>
               <td>{paginationData.gender}</td>
               <td>{paginationData.totalBookIssuedTo}</td>
-              <td>{paginationData.totalbooknameIssuedTo}</td>
+              <td>{paginationData.totalbooknameIssuedTo.join(',')}</td>
             </tr>
           ))}
         </tbody>
@@ -80,9 +80,7 @@ function StudentLibrary() {
       <button onClick={() => clickNext()}>next</button>
       <br />
       <br />
-      
-
-    </div>
+      </div>
   );
 }
 

@@ -10,7 +10,7 @@ export const addBookIssueDataInStudentList = issuedData => {
     }
 }
 export const returnBook = return_data => {
-    console.log("action", return_data)
+    
     return {
         type: RETURNBOOK,
         payload: return_data
@@ -32,8 +32,12 @@ export const issueBookArrayReducer = (state = initialState, action) => {
         }
         case RETURNBOOK:
             const chgData = [...state.initialIssueBookDataArray];
-            console.log(chgData,"student",action.payload.nameOfStudent,"book",action.payload.nameOfBook)
-            const reqIssuedData = chgData.filter((data) => data.nameOfStudent!==action.payload.nameOfStudent && data.nameOfBook !== action.payload.nameOfBook && data.issuedBookQuantity !== action.payload.nameOfBook)
+            const reqIssuedData = chgData.filter((data) =>
+            data.nameOfStudent!==action.payload.nameOfStudent || 
+            data.nameOfBook!==action.payload.nameOfBook || 
+            data.issuedBookQuantity!==action.payload.issuedBookQuantity
+            )
+            
             return {
                 ...state,
                 initialIssueBookDataArray: reqIssuedData

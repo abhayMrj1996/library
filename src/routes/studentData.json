@@ -6,7 +6,7 @@
         "email": "zkittiman0@cpanel.net",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 2,
@@ -15,7 +15,7 @@
         "email": "ipatriche1@hexun.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 3,
@@ -24,7 +24,7 @@
         "email": "ghopkyns2@boston.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 4,
@@ -33,7 +33,7 @@
         "email": "imaasz3@netlog.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 5,
@@ -42,7 +42,7 @@
         "email": "cvellender4@1und1.de",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 6,
@@ -51,7 +51,7 @@
         "email": "rbryden5@ihg.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 7,
@@ -60,7 +60,7 @@
         "email": "ayearnes6@bizjournals.com",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 8,
@@ -69,7 +69,7 @@
         "email": "sding7@archive.org",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 9,
@@ -78,7 +78,7 @@
         "email": "mbroseman8@yahoo.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 10,
@@ -87,7 +87,7 @@
         "email": "tmorden9@nbcnews.com",
         "gender": "Agender",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 11,
@@ -96,7 +96,7 @@
         "email": "atickela@chronoengine.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 12,
@@ -105,7 +105,7 @@
         "email": "cidaleb@posterous.com",
         "gender": "Non-binary",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 13,
@@ -114,7 +114,7 @@
         "email": "mgoslinc@ow.ly",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 14,
@@ -123,7 +123,7 @@
         "email": "krudalld@jimdo.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 15,
@@ -132,7 +132,7 @@
         "email": "eparkhousee@comcast.net",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 16,
@@ -141,7 +141,7 @@
         "email": "vrevief@blogtalkradio.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 17,
@@ -150,7 +150,7 @@
         "email": "ngawneg@hubpages.com",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 18,
@@ -159,7 +159,7 @@
         "email": "wlowenh@tamu.edu",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 19,
@@ -168,7 +168,7 @@
         "email": "ssloti@bandcamp.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 20,
@@ -177,7 +177,7 @@
         "email": "cpeetj@google.pl",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 21,
@@ -186,7 +186,7 @@
         "email": "aestickk@imgur.com",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 22,
@@ -195,7 +195,7 @@
         "email": "hklarzynskil@php.net",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 23,
@@ -204,7 +204,7 @@
         "email": "nespinetm@imdb.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 24,
@@ -213,7 +213,7 @@
         "email": "cskalan@godaddy.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 25,
@@ -222,7 +222,7 @@
         "email": "thunstono@fastcompany.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 26,
@@ -231,7 +231,7 @@
         "email": "givanishchevp@about.me",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 27,
@@ -240,7 +240,7 @@
         "email": "lhaywardq@ifeng.com",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 28,
@@ -249,7 +249,7 @@
         "email": "lacomer@amazon.co.uk",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 29,
@@ -258,7 +258,7 @@
         "email": "lgrigolons@shinystat.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 30,
@@ -267,7 +267,7 @@
         "email": "kvalasekt@wisc.edu",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 31,
@@ -276,7 +276,7 @@
         "email": "jsawreyu@behance.net",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 32,
@@ -285,7 +285,7 @@
         "email": "ttuttv@shareasale.com",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 33,
@@ -294,7 +294,7 @@
         "email": "yeassebyw@elegantthemes.com",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 34,
@@ -303,7 +303,7 @@
         "email": "ptorriex@smh.com.au",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 35,
@@ -312,7 +312,7 @@
         "email": "sandriveauxy@sohu.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 36,
@@ -321,7 +321,7 @@
         "email": "deareyz@cnn.com",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 37,
@@ -330,7 +330,7 @@
         "email": "kaudsley10@nationalgeographic.com",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 38,
@@ -339,7 +339,7 @@
         "email": "atuddenham11@ucoz.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 39,
@@ -348,7 +348,7 @@
         "email": "bapfelmann12@lulu.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 40,
@@ -357,7 +357,7 @@
         "email": "obaldery13@plala.or.jp",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 41,
@@ -366,7 +366,7 @@
         "email": "tkippins14@mayoclinic.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 42,
@@ -375,7 +375,7 @@
         "email": "eaplin15@skype.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 43,
@@ -384,7 +384,7 @@
         "email": "ffossett16@amazon.com",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 44,
@@ -393,7 +393,7 @@
         "email": "gshanley17@free.fr",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 45,
@@ -402,7 +402,7 @@
         "email": "preddick18@google.co.uk",
         "gender": "Male",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 46,
@@ -411,7 +411,7 @@
         "email": "odawe19@dell.com",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 47,
@@ -420,7 +420,7 @@
         "email": "cpolycote1a@yale.edu",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 48,
@@ -429,7 +429,7 @@
         "email": "nrozanski1b@mlb.com",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 49,
@@ -438,7 +438,7 @@
         "email": "nblonfield1c@forbes.com",
         "gender": "Female",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     },
     {
         "id": 50,
@@ -447,6 +447,6 @@
         "email": "meaden1d@booking.com",
         "gender": "Non-binary",
         "totalBookIssuedTo": "0",
-        "totalbooknameIssuedTo": " "
+        "totalbooknameIssuedTo": []
     }
 ]
