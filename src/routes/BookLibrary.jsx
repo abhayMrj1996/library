@@ -1,64 +1,75 @@
 
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { useSelector,useDispatch} from "react-redux";
-import {deleteRow} from "../Book-Library/bookLibraryReducer";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteRow } from "../Book-Library/bookLibraryReducer";
 import Button from '@mui/material/Button';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import Table from "@mui/material/Table";
+import TableHead from '@mui/material/TableHead';
+import TableBody from "@mui/material/TableBody";
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { TextField } from "@mui/material";
+import Grid from '@mui/material/Grid'
+import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import TableComponent from "../table/tableComponent";
 
 function BookLibrary() {
   const dispatch = useDispatch();
   const displayBookData = useSelector((state) => state.book.initialBookList);
-  const [totalBookData,setTotalBookData]=useState([...displayBookData]);
- 
+  const [totalBookData, setTotalBookData] = useState([...displayBookData]);
+
 
   // search book
-  const handleSearchBook =(e) =>{    
-  const {value}=e.target;  
-  const reqBook = displayBookData.filter((data)=>data.nameOfBook.includes(value));
-  
-  setTotalBookData(reqBook); 
-  }
-  
-  
-  //pagination
-  const [page,setPage]=useState(1);
-  let A = page * 5; 
-  let B = A - 5;
-  let pageData=totalBookData.slice(B,A);
-  
+  const handleSearchBook = (e) => {
+    const { value } = e.target;
+    const reqBook = displayBookData.filter((data) => data.nameOfBook.includes(value));
 
-  useEffect(()=>{
-    
+    setTotalBookData(reqBook);
+  }
+
+
+  //pagination
+  const [page, setPage] = useState(1);
+  let A = page * 5;
+  let B = A - 5;
+  let pageData = totalBookData.slice(B, A);
+
+
+  useEffect(() => {
+
     setTotalBookData(displayBookData)
-  },[displayBookData])
-  
+  }, [displayBookData])
+
   const clickPrev = () => {
     const pageCount = page >= 2 ? page - 1 : page;
     setPage(pageCount);
   };
   const clickNext = () => {
-    const pageCount = page <= Math.ceil(totalBookData.length / 5)-1 ? page + 1 : page;
+    const pageCount = page <= Math.ceil(totalBookData.length / 5) - 1 ? page + 1 : page;
     setPage(pageCount);
   }
 
   //delete
-  const handleDelete = (rowId) =>{
-    
-   const newBookList=[...displayBookData];
-   const index = newBookList.findIndex((deleteID)=>deleteID.id===rowId);
-   newBookList.splice(index,1);
-   
-   dispatch(deleteRow(newBookList))
-   
+  const handleDelete = (rowId) => {
+    const newBookList = [...displayBookData];
+    const index = newBookList.findIndex((deleteID) => deleteID.id === rowId);
+    newBookList.splice(index, 1);
+    dispatch(deleteRow(newBookList))
+
   }
-
-  
-
-  
+  const HEADING = Object.keys(pageData[0])
 
   return (
     <div>
-      <main style={{ paddingBottom: "1rem" }}>
+      <main style={{ paddingBottom: "1rem", textAlign: 'center' }}>
         <h2>BOOKS AVAILABLE</h2>
         <Link style={{ margin: "1rem 0" }} to="/add-book">
           AddBook
@@ -68,47 +79,44 @@ function BookLibrary() {
         </Link>
         <Outlet />
       </main>
-      <label>SEARCH BOOK:</label>
-      <input type='text' name='searchBar' placeholder='enter name of book...' onChange={handleSearchBook}></input>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name of book </th>
-            <th>Name of the Author</th>
-            <th>Subtitle</th>
-            <th>Publishing</th>
-            <th>Price</th>
-            <th>Publisher</th>
-            <th>Books remaning</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
+      <Grid container spacing={1}>
+        <Grid xs={12} item>
+          <TextField
+            type='text'
+            name='searchBar'
+            placeholder='Search book...'
+            onChange={handleSearchBook}
+            size='small'
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton>
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              )
+            }} />
+        </Grid>
         
-        <tbody>
-          {!!pageData.length && pageData.map((paginationData) => (
-            <tr key={paginationData.id}>
-              <td>{paginationData.id}</td>
-              <td>{paginationData.nameOfBook} </td>
-              <td>{paginationData.nameOfAuthor}</td>
-              <td>{paginationData.subtitle}</td>
-              <td>{paginationData.publishing}</td>
-              <td>{paginationData.price}</td>
-              <td>{paginationData.publisher}</td>
-              <td>{paginationData.numberOfBooks}</td>
-              <td><Button onClick={()=>handleDelete(paginationData.id)} variant="contained">Delete</Button></td>
-            </tr>
-          ))}
-        </tbody>
-       
-        
-      </table>
-      <br />
-    <Button onClick={()=>clickPrev()} variant="contained">prev</Button>
-    {page} of {Math.ceil(totalBookData.length / 5)}
-    <Button  onClick={()=>clickNext()} variant="contained">next</Button>
-      
-      
+        <Grid xs={12} item>
+          {/* <TableComponent
+            data={pageData}
+            tableID='book'
+            handleDelete={handleDelete}
+            HEADING={HEADING} /> */}
+        </Grid>
+
+        <Grid xs={12} item sx={{ textAlign: 'center', }}>
+          <Button onClick={() => clickPrev()}
+            variant="contained">
+            <ArrowBackIosIcon />prev</Button>
+          {page} - {Math.ceil(totalBookData.length / 5)}
+          <Button onClick={() => clickNext()}
+            variant="contained">
+            next<ArrowForwardIosIcon /></Button>
+        </Grid>
+      </Grid>
+
     </div>
   );
 }

@@ -4,12 +4,19 @@ import { addReturnedBook, subtractBookQuantity } from "../Book-Library/bookLibra
 import { addIssueDataToStudent, removeReturnDataFromStudentList } from "../student-List/StudentListReducers";
 import { addBookIssueDataInStudentList } from "../issueBookList/issueBookListReducer";
 import { returnBook } from "../issueBookList/issueBookListReducer";
-import FormControl from "@mui/material/FormControl";
-import { Box, MenuItem, Select } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
-import Input from '@mui/material/Input'; 
+import { MenuItem, Select } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
+import { Card, CardContent,Typography,Grid } from "@mui/material";
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import Table from "@mui/material/Table";
+import TableHead from '@mui/material/TableHead';
+import TableBody from "@mui/material/TableBody";
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import TableComponent from "../table/tableComponent";
+
 
 function IssueBook() {
   const dispatch = useDispatch();
@@ -37,7 +44,7 @@ function IssueBook() {
     dispatch(subtractBookQuantity(issuedData));
     dispatch(addIssueDataToStudent(issuedData));
     dispatch(addBookIssueDataInStudentList(issuedData));
-    console.log(issuedData)
+    
   };
   const handelReturnBook = (student_name, book_name, book_quantity) => {
 
@@ -47,83 +54,102 @@ function IssueBook() {
       nameOfBook: book_name,
       issuedBookQuantity: book_quantity
     }
-
     dispatch(returnBook(return_data));
     dispatch(addReturnedBook(return_data));
     dispatch(removeReturnDataFromStudentList(return_data))
-
-
   }
-
-
+  const HEADING=Object.keys(issuedData);
+  console.log(HEADING);
+  
   return (
     <div >
-      <h3>Issue book</h3>
-      <br />
       
+      <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }}>
+        <CardContent>
+          <form onSubmit={handelFormSubmit}>
+          <Typography variant="h4">Issue book</Typography>
+          <Grid container spacing={1}>
+          <Grid xs={12} item>
+              <Select
+                type="text"
+                name="nameOfStudent"
+                onChange={handleFormChange}
+                required
+                fullWidth>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {initialStudentData.map((data) => (
+                  <MenuItem key={data.id} value={`${data.first_name} ${data.last_name}`}>
+                    {data.first_name} {data.last_name}
+                  </MenuItem>))}
+              </Select></Grid>
 
-        <form onSubmit={handelFormSubmit}>
-    <Box sx={{ minWidth: 130 }}>
-      <FormControl>        
-        <Select 
-        type="text" 
-        name="nameOfStudent" 
-        onChange={handleFormChange} 
-        required>
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {initialStudentData.map((data) => (
-            <MenuItem key={data.id} value={`${data.first_name} ${data.last_name}`}>
-              {data.first_name} {data.last_name}
-            </MenuItem>))}
-        </Select>        
-        <br />                 
-        <Select
-          type="text"
-          name="nameOfBook"
-          onChange={handleFormChange}
-          required>
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {initialBookList.map((data) => (
-            <MenuItem key={data.id} value={data.nameOfBook}>{data.nameOfBook}</MenuItem>
-          ))}
-        </Select>
-        <br />
-             
-        <TextField label="enter bookQuantity" variant="outlined" name="issuedBookQuantity"onChange={handleFormChange} type="number"/>
-        <br />
-        <Button type="submit" variant='contained'>Issue</Button>
- 
-      </FormControl>
-    </Box>
-    </form>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>STUDENT</th>
-            <th>ISSued book</th>
-            <th>Quantity</th>
-            <th>RETURN BOOK</th>
-          </tr>
-        </thead>
-        <tbody>
+              <Grid xs={12} item>
+              <Select
+                type="text"
+                name="nameOfBook"
+                onChange={handleFormChange}
+                required
+                fullWidth>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {initialBookList.map((data) => (
+                  <MenuItem key={data.id} value={data.nameOfBook}>{data.nameOfBook}</MenuItem>
+                ))}
+              </Select></Grid>
+              
+              <Grid xs={12} item>
+              <TextField label="enter bookQuantity" 
+              variant="outlined" 
+              name="issuedBookQuantity" 
+              onChange={handleFormChange} 
+              type="number"
+              fullWidth />
+              </Grid>
+              <Grid xs={12} item>
+              <Button type="submit" variant='contained'>Issue</Button>
+              </Grid>
+              </Grid>
+            </form>
+        </CardContent>
+      </Card>
+      {/* <br/>
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead sx={{ bgcolor: 'primary.main' }}>
+          <TableRow>
+            <TableCell sx={{fontSize:18}}>ID</TableCell>
+            <TableCell sx={{fontSize:18}}>STUDENT</TableCell>
+            <TableCell sx={{fontSize:18}}>ISSued book</TableCell>
+            <TableCell sx={{fontSize:18}}>Quantity</TableCell>
+            <TableCell sx={{fontSize:18}}>RETURN BOOK</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {initialIssueBookDataArray.map((data, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{data.nameOfStudent}</td>
-              <td>{data.nameOfBook}</td>
-              <td>{data.issuedBookQuantity}</td>
-              <td><button onClick={() => handelReturnBook(data.nameOfStudent, data.nameOfBook, data.issuedBookQuantity)}>return</button></td>
-            </tr>
+            <TableRow key={index}>
+              <TableCell>{index + 1}</TableCell>
+              <TableCell>{data.nameOfStudent}</TableCell>
+              <TableCell>{data.nameOfBook}</TableCell>
+              <TableCell>{data.issuedBookQuantity}</TableCell>
+              <TableCell>
+                <button onClick={() => handelReturnBook(data.nameOfStudent, data.nameOfBook, data.issuedBookQuantity)}>
+                  return
+                </button>
+                </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
-      <br />
-      <br />
+        </TableBody>
+      </Table>
+      </TableContainer> */}
+      <TableComponent 
+      data={initialIssueBookDataArray}
+      HEADING={HEADING}
+      handelReturnBook={handelReturnBook}
+      tableID='issueBook'
+      />
 
     </div>
   );

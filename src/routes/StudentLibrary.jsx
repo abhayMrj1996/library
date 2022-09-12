@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import { useSelector, } from "react-redux";
+import { TextField } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import TableComponent from "../table/tableComponent";
 
 function StudentLibrary() {
   const displayStudentData = useSelector(
@@ -40,46 +49,43 @@ function StudentLibrary() {
       page <= Math.ceil(totalStudentData.length / 5) - 1 ? page + 1 : page;
     setPage(pageCount);
   };
+  const HEADING = Object.keys(pageData[0])
 
   return (
     <div>
       <main style={{ padding: "1rem 0" }}>
         <h2>STUDENT LIST</h2>
       </main>
-      <label>search</label>
-      <input onChange={handleSearchStudent}></input>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name </th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Gender</th>
-            <th>TOTAL ISSUED BOOK</th>
-            <th>NAME OF BOOKS</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pageData.map((paginationData) => (
-            <tr key={paginationData.id}>
-              <td>{paginationData.id}</td>
-              <td>{paginationData.first_name} </td>
-              <td>{paginationData.last_name}</td>
-              <td>{paginationData.email}</td>
-              <td>{paginationData.gender}</td>
-              <td>{paginationData.totalBookIssuedTo}</td>
-              <td>{paginationData.totalbooknameIssuedTo.join(',')}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <br />
-      <button onClick={() => clickPrev()}>prev</button>
-      {page} of 10
-      <button onClick={() => clickNext()}>next</button>
-      <br />
-      <br />
+ 
+      <Grid container spacing={1}>
+      <Grid xs={12} item>
+      <TextField
+       onChange={handleSearchStudent} 
+       placeholder='Search student...'
+       size='small'
+       InputProps={{
+        endAdornment: (
+          <InputAdornment position='end'>
+            <IconButton>
+              <SearchIcon />
+            </IconButton>
+          </InputAdornment>
+        )
+      }}></TextField>
+      </Grid>
+      <Grid xs={12} item>             
+      <TableComponent
+            data={pageData}
+            tableID='student'
+            HEADING={HEADING} />
+      </Grid>
+      <Grid xs={12} sx={{textAlign:'center'}} item>
+      
+      <Button onClick={() => clickPrev()} variant="contained"><ArrowBackIosIcon />prev</Button>
+      {page} - 10
+      <Button onClick={() => clickNext()} variant="contained">next<ArrowForwardIosIcon /></Button>
+      </Grid>
+      </Grid>
       </div>
   );
 }

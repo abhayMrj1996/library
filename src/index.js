@@ -8,22 +8,22 @@ import IssueBook from "./routes/IssueBook.js";
 import AddBook from "./routes/AddBook.js";
 import { Provider } from "react-redux";
 import store from './store'
+// import LoginPage from './routes/LoginPage';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(  
   <Provider store={store}>
     <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} >
-
+    <App />
+     {/* <Routes>      
+      <Route path="/" element={<LoginPage />} >
       <Route path="book-library" element={<BookLibrary />} />
       <Route path="issue-book" element={<IssueBook />} />
-      <Route path="add-book" element={<AddBook />} />
-          
-
+      <Route path="add-book" element={<AddBook />} />         
       <Route path="student-library" element={<StudentLibrary />} />
      </Route>
-    </Routes>
+    </Routes> */}
   </BrowserRouter>
   </Provider>
   

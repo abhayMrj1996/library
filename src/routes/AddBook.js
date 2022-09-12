@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
-import {addBookToLibrary} from "../Book-Library/bookLibraryReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { addBookToLibrary } from "../Book-Library/bookLibraryReducer";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import { Typography,Button } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 
 
-function AddBook(){
+function AddBook() {
   const dispatch = useDispatch();
-  const {initialBookList} = useSelector((state)=> state.book);
-  const [newBook,setNewBook]=useState({
-        id: "",
-        nameOfBook: "",
-        nameOfAuthor: "",
-        subtitle: "",
-        publishing:"",
-        publisher: "",
-        price: "",
-        numberOfBooks:""
-});
-    const handleAddFormChange = (e) => {
+  const { initialBookList } = useSelector((state) => state.book);
+  const [newBook, setNewBook] = useState({
+    id: "",
+    nameOfBook: "",
+    nameOfAuthor: "",
+    subtitle: "",
+    publishing: "",
+    publisher: "",
+    price: "",
+    numberOfBooks: ""
+  });
+  const handleAddFormChange = (e) => {
     const { name, value } = e.target;
     const EmptyInput = { ...newBook };
     EmptyInput[name] = value;
@@ -24,80 +29,105 @@ function AddBook(){
     EmptyInput.id = initialBookList.length + 1
     setNewBook(EmptyInput);
 
-    }
-    const handleAddFormSubmit = (e)=>{
-      e.preventDefault();
+  }
+  const handleAddFormSubmit = (e) => {
+    e.preventDefault();
 
-      dispatch(addBookToLibrary(newBook))
+    dispatch(addBookToLibrary(newBook))
 
-    }
-    return(
-        <div>
-     <form onSubmit={handleAddFormSubmit}>
-      <h2 class="font-extrabold text-center">Book entries</h2>
-      
-        <br />
-        <br />
-        <input
-          type="text"
-          name="nameOfBook"
-          placeholder="Name Of Book"
-          onChange={handleAddFormChange}
-          required
-        ></input>
- <br /><br />
-        <input
-          type="text"
-          name="nameOfAuthor"
-          placeholder="Name of Author"
-          onChange={handleAddFormChange}
-          required
-        ></input>
- <br /><br />
-        <input
-          type="text"
-          name="subtitle"
-          placeholder="Subtitle"
-          onChange={handleAddFormChange}
-          required
-        ></input>
- <br /><br />
-        <input
-          type="text"
-          name="publishing"
-          placeholder="Publishing"
-          onChange={handleAddFormChange}
-          required
-        ></input>
- <br /><br />
-        <input
-          type="text"
-          name="price"
-          placeholder="Price"
-          onChange={handleAddFormChange}
-          required
-        ></input>
- <br /><br />
-        <input
-          type="text"
-          name="publisher"
-          placeholder="Publisher"
-          onChange={handleAddFormChange}
-          required
-        ></input>
- <br /><br />
-        <input
-          type="text"
-          name="numberOfBooks"
-          placeholder="Number of Books"
-          onChange={handleAddFormChange}
-          required
-        ></input>
- <br /><br />
-        <button type="submit">Add book</button>
-      </form>
-        </div>
-    )
+  }
+  return (
+    <div>
+      <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }}>
+        <CardContent>
+          <form onSubmit={handleAddFormSubmit}>
+            <Typography variant="h4">Book entries</Typography>
+
+            <Grid container spacing={1}>
+              <Grid xs={12} item>
+                <TextField
+                  type="text"
+                  name="nameOfBook"
+                  placeholder="Name Of Book"
+                  onChange={handleAddFormChange}
+                  required
+                  fullWidth
+                ></TextField>
+              </Grid>
+
+              <Grid xs={12}  item>
+                <TextField
+                  type="text"
+                  name="nameOfAuthor"
+                  placeholder="Name of Author"
+                  onChange={handleAddFormChange}
+                  required
+                  fullWidth
+                ></TextField>
+                </Grid>
+
+              <Grid xs={12}  item>
+                <TextField
+                  type="text"
+                  name="subtitle"
+                  placeholder="Subtitle"
+                  onChange={handleAddFormChange}
+                  required
+                  fullWidth
+                ></TextField>
+                </Grid>
+
+              <Grid xs={12}  item>
+                <TextField
+                  type="text"
+                  name="publishing"
+                  placeholder="Publishing"
+                  onChange={handleAddFormChange}
+                  required
+                  fullWidth
+                ></TextField>
+                </Grid>
+
+                <Grid xs={12}  item>
+                <TextField
+                type="text"
+                name="publisher"
+                placeholder="Publisher"
+                onChange={handleAddFormChange}
+                required
+                fullWidth
+              ></TextField>
+              </Grid>
+              
+              <Grid xs={12} sm={6} item>
+                <TextField
+                type="text"
+                name="price"
+                placeholder="Price"
+                onChange={handleAddFormChange}
+                required
+              ></TextField>
+              </Grid>             
+
+              <Grid xs={12} sm={6} item>
+                <TextField
+                type="text"
+                name="numberOfBooks"
+                placeholder="Number of Books"
+                onChange={handleAddFormChange}
+                required
+              ></TextField>
+              </Grid>
+
+              <Grid xs={12} item>
+                <Button type="submit" variant="contained">Add book</Button>
+                </Grid>
+            </Grid>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  )
 
 }
 export default AddBook
