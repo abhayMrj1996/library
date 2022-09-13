@@ -8,13 +8,6 @@ import { MenuItem, Select } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
 import { Card, CardContent,Typography,Grid } from "@mui/material";
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import Table from "@mui/material/Table";
-import TableHead from '@mui/material/TableHead';
-import TableBody from "@mui/material/TableBody";
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import TableComponent from "../table/tableComponent";
 
 
@@ -114,36 +107,7 @@ function IssueBook() {
               </Grid>
             </form>
         </CardContent>
-      </Card>
-      {/* <br/>
-      <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead sx={{ bgcolor: 'primary.main' }}>
-          <TableRow>
-            <TableCell sx={{fontSize:18}}>ID</TableCell>
-            <TableCell sx={{fontSize:18}}>STUDENT</TableCell>
-            <TableCell sx={{fontSize:18}}>ISSued book</TableCell>
-            <TableCell sx={{fontSize:18}}>Quantity</TableCell>
-            <TableCell sx={{fontSize:18}}>RETURN BOOK</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {initialIssueBookDataArray.map((data, index) => (
-            <TableRow key={index}>
-              <TableCell>{index + 1}</TableCell>
-              <TableCell>{data.nameOfStudent}</TableCell>
-              <TableCell>{data.nameOfBook}</TableCell>
-              <TableCell>{data.issuedBookQuantity}</TableCell>
-              <TableCell>
-                <button onClick={() => handelReturnBook(data.nameOfStudent, data.nameOfBook, data.issuedBookQuantity)}>
-                  return
-                </button>
-                </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      </TableContainer> */}
+      </Card>    
       <TableComponent 
       data={initialIssueBookDataArray}
       HEADING={HEADING}

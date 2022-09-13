@@ -1,8 +1,6 @@
-import React from "react";
-import { Button, Grid, TextField, Card, CardContent } from "@mui/material";
+import React,{useEffect} from "react";
+import { Button, Grid, Card, CardContent } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
@@ -11,25 +9,34 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useDispatch } from "react-redux";
 import { loginAuth } from "../loginAuthenticaton/loginAuthReducer";
 import { useNavigate } from "react-router-dom";
-
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 
 const LoginPage = () => {
   const [values, setValues] = React.useState({
-    userId:'',
-    password: '',    
+    userId: '',
+    password: '',
+    repeatPassword: '',
     showPassword: false,
   });
 
-  const dispatch=useDispatch();
-  const navigate=useNavigate();
-  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleLogin = () =>{    
-    
-    dispatch(loginAuth(values));  
-    navigate("/book-library",{replace:true})   
-    
+  useEffect(()=>{
+    ValidatorForm.addValidationRule('required', (values) => {
+      if (!values.password || !values.userId) {
+          return false;
+      }
+      return true;
+  });
+  },[])
+
+  const handleLogin = () => {
+
+    dispatch(loginAuth(values));
+    navigate("/book-library", { replace: true })
+
   }
 
   const handleChange = (prop) => (event) => {
@@ -52,30 +59,34 @@ const LoginPage = () => {
       <br />
       <Card style={{ maxWidth: 350, margin: "0 auto", padding: "20px 5px" }}>
         <CardContent>
-          <form onSubmit={handleLogin}>
+          <ValidatorForm onSubmit={handleLogin}>
             <Grid container spacing={1}>
               <Grid xs={12} item>
-                <TextField
+                <TextValidator
                   label="user name"
                   id="outlined-start-adornment"
                   value={values.userId}
                   onChange={handleChange('userId')}
-                  required
+                  name="userId"
+                  type="text"
+                  validators={['required']}
+                  errorMessages={['this field is required']}
                   sx={{ m: 1, width: '35ch' }}
                   InputProps={{
                     endAdornment: <InputAdornment position='end' ><PersonIcon /></InputAdornment>,
                   }}
                 />
               </Grid>
-              <Grid xs={12} item>
-                <FormControl sx={{ m: 1, width: '35ch' }} variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                  <OutlinedInput
+              <Grid xs={12} item >
+                <FormControl variant="outlined">
+                  <TextValidator
                     id="outlined-adornment-password"
                     type={values.showPassword ? 'text' : 'password'}
                     value={values.password}
                     onChange={handleChange('password')}
-                    required
+                    validators={['required']}
+                    errorMessages={['this field is required']}
+                    sx={{ m: 1, width: '35ch' }}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -88,15 +99,15 @@ const LoginPage = () => {
                         </IconButton>
                       </InputAdornment>
                     }
-                    label="Password"
-                  />
+                    label="password"
+                    />
                 </FormControl>
               </Grid>
               <Grid xs={12} item>
                 <Button variant="contained" type='submit'>Login</Button>
               </Grid>
             </Grid>
-          </form>
+            </ValidatorForm>
         </CardContent>
       </Card>
     </div>

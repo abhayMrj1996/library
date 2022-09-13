@@ -4,16 +4,8 @@ import { Link, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteRow } from "../Book-Library/bookLibraryReducer";
 import Button from '@mui/material/Button';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import Table from "@mui/material/Table";
-import TableHead from '@mui/material/TableHead';
-import TableBody from "@mui/material/TableBody";
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { TextField } from "@mui/material";
 import Grid from '@mui/material/Grid'
-import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SearchIcon from '@mui/icons-material/Search';
@@ -99,11 +91,11 @@ function BookLibrary() {
         </Grid>
         
         <Grid xs={12} item>
-          {/* <TableComponent
+          <TableComponent
             data={pageData}
             tableID='book'
             handleDelete={handleDelete}
-            HEADING={HEADING} /> */}
+            HEADING={HEADING} />
         </Grid>
 
         <Grid xs={12} item sx={{ textAlign: 'center', }}>
