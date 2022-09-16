@@ -1,6 +1,8 @@
 import { ADDBOOK, SUBTRACTISSUEBOOK, RETURNDATA, DELETEROW, ADD_RETURN_BOOK } from "./bookLibraryActions";
 import BookData from '../routes/mockData.json';
 
+
+
 // AcTIONS
 export const addBookToLibrary = newBook => {
     return {
@@ -8,10 +10,11 @@ export const addBookToLibrary = newBook => {
         payload: newBook
     }
 }
-export const subtractBookQuantity = issuedData => {
+export const subtractBookQuantity = displayIssueBooks => {
+    console.log("dispatched issue book",displayIssueBooks)
     return {
         type: SUBTRACTISSUEBOOK,
-        payload: issuedData
+        payload: displayIssueBooks
 
     }
 
@@ -31,11 +34,11 @@ export const deleteRow = newBookList => {
     }
 
 }
-export const addReturnedBook = return_data => {
+export const addReturnedBook = dataToDispatch => {
     
     return {
         type: ADD_RETURN_BOOK,
-        payload: return_data
+        payload: dataToDispatch
 
     }
 }
@@ -46,7 +49,8 @@ const initialState = {
     initialBookList: [...BookData]
 }
 
-export const bookLibraryReducer = (state = initialState, action) => {
+export const BookLibraryReducer = (state = initialState, action) => {
+    
 
 
     switch (action.type) {
@@ -62,42 +66,44 @@ export const bookLibraryReducer = (state = initialState, action) => {
             }
         case SUBTRACTISSUEBOOK:
             const chgContacts = [...state.initialBookList];
-            const reqBook = chgContacts.find(
-                (no) => no.nameOfBook === action.payload.nameOfBook
-            );
-            const tempBook = {
-                ...reqBook,
-                numberOfBooks:
-                    reqBook.numberOfBooks - action.payload.issuedBookQuantity
-            };
-            const otherBooks = chgContacts.filter(
-                (no) => no.nameOfBook !== action.payload.nameOfBook
-            );
-            const finalBooks = [...otherBooks, tempBook];
-
-            const filteredFinalBook = finalBooks.sort((a, b) => a.id - b.id);
-
-
+            let filteredFinalBook;
+            action.payload.forEach((issue_Entry) => {
+                let find_book = chgContacts.find((data)=>data.nameOfBook===issue_Entry.issued_Books);
+                console.log("find_book",find_book)
+                if(find_book){
+                    find_book.numberOfBooks=find_book.numberOfBooks - 1
+                };
+                let unSubtractedList=chgContacts.filter((data)=>data.nameOfBook !== issue_Entry.issued_Books);
+                console.log("unSubtractedList",unSubtractedList)
+                let finalBooks=[...unSubtractedList,find_book];
+                console.log("finalBooks",finalBooks)
+                filteredFinalBook = finalBooks.sort((a, b) => a.id - b.id);
+                console.log('filteredFinalBook',filteredFinalBook)
+            
+            })
             return {
                 ...state,
                 initialBookList: filteredFinalBook
 
             }
         
+
+            
         case ADD_RETURN_BOOK:
             const returnDataToLibraty = [...state.initialBookList];
-            const reqRowData = returnDataToLibraty.find(
-                (no) => no.nameOfBook === action.payload.nameOfBook
-            );
-            const tempAddedBook = {
-                ...reqRowData,
-                numberOfBooks:
-                    parseInt(reqRowData.numberOfBooks) + parseInt(action.payload.issuedBookQuantity)
-            };
-            const otherUnChangedBooks = returnDataToLibraty.filter(
-                (no) => no.nameOfBook !== action.payload.nameOfBook
-            );
-            const finalBookList = [...otherUnChangedBooks, tempAddedBook];
+            let finalBookList
+            const search_for_book = action.payload.totalbooknameIssuedTo.forEach((book) => {
+                let find_book_in_list = returnDataToLibraty.find((data)=>data.nameOfBook===book);
+                if(find_book_in_list){
+                    find_book_in_list.numberOfBooks = parseInt(find_book_in_list.numberOfBooks) + 1
+                }
+                const otherUnChangedBooks = returnDataToLibraty.filter(
+                    (no) => no.nameOfBook !== find_book_in_list.nameOfBook
+                );
+                 finalBookList = [...otherUnChangedBooks, find_book_in_list];
+            });          
+            
+            
             const filteredFinalBookList = finalBookList.sort((a, b) => a.id - b.id);
             
                return{
