@@ -1,6 +1,8 @@
-import React,{useEffect} from "react";
-import { Button, Grid, Card, CardContent } from "@mui/material";
+import React from "react";
+import { Button, Grid, TextField, Card, CardContent } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
@@ -16,21 +18,12 @@ const LoginPage = () => {
   const [values, setValues] = React.useState({
     userId: '',
     password: '',
-    repeatPassword: '',
     showPassword: false,
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    ValidatorForm.addValidationRule('required', (values) => {
-      if (!values.password || !values.userId) {
-          return false;
-      }
-      return true;
-  });
-  },[])
 
   const handleLogin = () => {
 
@@ -54,6 +47,18 @@ const LoginPage = () => {
     event.preventDefault();
   };
 
+  
+
+  React.useEffect(()=>{
+    ValidatorForm.addValidationRule('beginWithSpace', () => {
+      if (values.userId.indexOf(" ")===0) {
+          return false;
+      }
+      return true;
+  });
+  })
+
+
   return (
     <div>
       <br />
@@ -67,27 +72,25 @@ const LoginPage = () => {
                   id="outlined-start-adornment"
                   value={values.userId}
                   onChange={handleChange('userId')}
-                  name="userId"
-                  type="text"
-                  validators={['required']}
-                  errorMessages={['this field is required']}
+                  validators={['beginWithSpace', 'required']}
+                  errorMessages={['error', 'this field is required']}
                   sx={{ m: 1, width: '35ch' }}
                   InputProps={{
                     endAdornment: <InputAdornment position='end' ><PersonIcon /></InputAdornment>,
                   }}
                 />
               </Grid>
-              <Grid xs={12} item >
+              <Grid xs={12} item>
                 <FormControl variant="outlined">
                   <TextValidator
                     id="outlined-adornment-password"
                     type={values.showPassword ? 'text' : 'password'}
                     value={values.password}
                     onChange={handleChange('password')}
-                    validators={['required']}
-                    errorMessages={['this field is required']}
-                    sx={{ m: 1, width: '35ch' }}
-                    endAdornment={
+                    sx={{ m: 1, width: '35ch' }} 
+                    required
+                    InputProps={{
+                    endAdornment:
                       <InputAdornment position="end">
                         <IconButton
                           aria-label="toggle password visibility"
@@ -98,16 +101,16 @@ const LoginPage = () => {
                           {values.showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
-                    }
-                    label="password"
-                    />
+                    }}
+                    label="Password"
+                  />
                 </FormControl>
               </Grid>
               <Grid xs={12} item>
                 <Button variant="contained" type='submit'>Login</Button>
               </Grid>
             </Grid>
-            </ValidatorForm>
+          </ValidatorForm>
         </CardContent>
       </Card>
     </div>

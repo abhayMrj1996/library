@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, TableBody, TableHead, TableRow, TableCell, Button, TableContainer, Paper } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Barcode from "react-barcode";
 
 function TableComponent(props) {
 
@@ -12,7 +13,7 @@ function TableComponent(props) {
                     <TableHead >
                         <TableRow sx={{ fontSize: 18, bgcolor: 'text.disabled', color: 'background.paper' }}>
                             {!!props.HEADING && props.HEADING.map((d) => (
-                                <TableCell  sx={{ fontSize: 18, bgcolor: 'text.disabled', color: 'background.paper' }}>{d}</TableCell>
+                                <TableCell sx={{ fontSize: 18, bgcolor: 'text.disabled', color: 'background.paper' }}>{d}</TableCell>
                             ))}
                             <TableCell sx={{ fontSize: 18, bgcolor: 'text.disabled', color: 'background.paper' }}></TableCell>
                         </TableRow>
@@ -24,15 +25,19 @@ function TableComponent(props) {
 
                                     <TableCell>{array[h]}</TableCell>
                                 ))}
+                                {props.tableID === 'student' &&
+                                    <TableCell>
+                                        <Barcode value={array.barCode} renderer={"img"} height={30} width={1} fontSize={12}/>
+                                    </TableCell>}
                                 <TableCell>
                                     {props.tableID === 'book' ?
-                                        <Button onClick={() => props.handleDelete(array.id)}
+                                        <Button onClick={() => props.handleClickOpen(array.id)}
                                             variant="contained">Delete
                                             <DeleteIcon />
                                         </Button> : props.tableID === 'issueBook' ?
                                             <Button onClick={() => props.handelReturnBook(
-                                                array.nameOfStudent, 
-                                                array.nameOfBook, 
+                                                array.barCode,
+                                                array.nameOfBook,
                                                 array.issuedBookQuantity)}
                                                 variant="contained">Return
                                             </Button> : []}

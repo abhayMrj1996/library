@@ -12,12 +12,22 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import TableComponent from "../table/tableComponent";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 function BookLibrary() {
   const dispatch = useDispatch();
   const displayBookData = useSelector((state) => state.book.initialBookList);
   const [totalBookData, setTotalBookData] = useState([...displayBookData]);
-
+  const [open, setOpen] = React.useState(false);
+  const [list,setList] = useState()
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   // search book
   const handleSearchBook = (e) => {
@@ -50,13 +60,28 @@ function BookLibrary() {
   }
 
   //delete
-  const handleDelete = (rowId) => {
+  const handleDelete = () => {
+    
+    setOpen(false);
+    dispatch(deleteRow(list))
+
+  }
+  
+  // delete Dialogue message
+  const handleClickOpen = (rowId) => {
     const newBookList = [...displayBookData];
     const index = newBookList.findIndex((deleteID) => deleteID.id === rowId);
     newBookList.splice(index, 1);
-    dispatch(deleteRow(newBookList))
+    console.log("index id=",rowId,"after delete=",newBookList)
+    setList(newBookList);
+    setOpen(true);
+    
+  };
 
-  }
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const HEADING = Object.keys(pageData[0])
 
   return (
@@ -71,6 +96,30 @@ function BookLibrary() {
         </Link>
         <Outlet />
       </main>
+      
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"DELETE BOOK?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Do you wantto delete this!!!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleClose}>
+            Disagree
+          </Button>
+          <Button onClick={handleDelete} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Grid container spacing={1}>
         <Grid xs={12} item>
           <TextField
@@ -89,12 +138,12 @@ function BookLibrary() {
               )
             }} />
         </Grid>
-        
+
         <Grid xs={12} item>
           <TableComponent
             data={pageData}
             tableID='book'
-            handleDelete={handleDelete}
+            handleClickOpen={handleClickOpen}
             HEADING={HEADING} />
         </Grid>
 

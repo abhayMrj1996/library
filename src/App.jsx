@@ -12,8 +12,7 @@ import ProtectedRoutes from './routes/ProtectedRoutes';
 
 
 function App() {    
-    const initialLogIn=useSelector((state) => state.loginAuth.initialLogIn);
-    console.log("loginSTATE",initialLogIn)
+    const initialLogIn=useSelector((state) => state.loginAuth.initialLogIn);   
   return (
 
     <div className="App">

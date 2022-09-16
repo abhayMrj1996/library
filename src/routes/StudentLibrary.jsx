@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import TableComponent from "../table/tableComponent";
+import Barcode from "react-barcode";
+import JsBarcode from "jsbarcode";
 
 function StudentLibrary() {
   const displayStudentData = useSelector(
@@ -18,20 +20,20 @@ function StudentLibrary() {
   const handleSearchStudent = (e) => {
     const { value } = e.target;
     const splitName = value.split(" ");
-    if(splitName.length<=1){
+    if (splitName.length <= 1) {
       const reqStudent = displayStudentData.filter((data) =>
-     data.first_name.toLowerCase().includes(splitName[0].toLowerCase()))
-     setTotalStuentData(reqStudent); 
-    }    
-    else{
-    const reqStudent = displayStudentData.filter((data) =>
-     data.first_name.toLowerCase().includes(splitName[0].toLowerCase()) 
-     &&
-     data.last_name.toLowerCase().includes(splitName[1].toLowerCase()));
-     setTotalStuentData(reqStudent);
+        data.first_name.toLowerCase().includes(splitName[0].toLowerCase()))
+      setTotalStuentData(reqStudent);
+    }
+    else {
+      const reqStudent = displayStudentData.filter((data) =>
+        data.first_name.toLowerCase().includes(splitName[0].toLowerCase())
+        &&
+        data.last_name.toLowerCase().includes(splitName[1].toLowerCase()));
+      setTotalStuentData(reqStudent);
+    }
+
   }
-    
-  } 
 
   const [page, setPage] = useState(1);
 
@@ -50,43 +52,47 @@ function StudentLibrary() {
     setPage(pageCount);
   };
   const HEADING = Object.keys(pageData[0])
+  
 
   return (
     <div>
       <main style={{ padding: "1rem 0" }}>
         <h2>STUDENT LIST</h2>
       </main>
- 
+
       <Grid container spacing={1}>
-      <Grid xs={12} item>
-      <TextField
-       onChange={handleSearchStudent} 
-       placeholder='Search student...'
-       size='small'
-       InputProps={{
-        endAdornment: (
-          <InputAdornment position='end'>
-            <IconButton>
-              <SearchIcon />
-            </IconButton>
-          </InputAdornment>
-        )
-      }}></TextField>
-      </Grid>
-      <Grid xs={12} item>             
-      <TableComponent
+        <Grid xs={12} item>
+          <TextField
+            onChange={handleSearchStudent}
+            placeholder='Search student...'
+            size='small'
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton>
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}></TextField>
+        </Grid>
+        <Grid xs={12} item>
+          <TableComponent
             data={pageData}
             tableID='student'
             HEADING={HEADING} />
+        </Grid>
+        <Grid xs={12} sx={{ textAlign: 'center' }} item>
+
+          <Button onClick={() => clickPrev()} variant="contained"><ArrowBackIosIcon />prev</Button>
+          {page} - 10
+          <Button onClick={() => clickNext()} variant="contained">next<ArrowForwardIosIcon /></Button>
+        </Grid>
       </Grid>
-      <Grid xs={12} sx={{textAlign:'center'}} item>
+      <Barcode value={"student2022A1"} renderer={"img"}   height={30} width={1}/>
       
-      <Button onClick={() => clickPrev()} variant="contained"><ArrowBackIosIcon />prev</Button>
-      {page} - 10
-      <Button onClick={() => clickNext()} variant="contained">next<ArrowForwardIosIcon /></Button>
-      </Grid>
-      </Grid>
-      </div>
+      
+    </div>
   );
 }
 

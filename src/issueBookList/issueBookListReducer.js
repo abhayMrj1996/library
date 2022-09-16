@@ -33,7 +33,7 @@ export const issueBookArrayReducer = (state = initialState, action) => {
         case RETURNBOOK:
             const chgData = [...state.initialIssueBookDataArray];
             const reqIssuedData = chgData.filter((data) =>
-            data.nameOfStudent!==action.payload.nameOfStudent || 
+            data.barCode!==action.payload.barCode || 
             data.nameOfBook!==action.payload.nameOfBook || 
             data.issuedBookQuantity!==action.payload.issuedBookQuantity
             )

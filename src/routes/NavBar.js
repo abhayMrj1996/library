@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React from 'react';
 import ResponsiveAppBar from "../appBar/ResponsiveAppBar";
-import { useSelector, } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 function NavBar() {

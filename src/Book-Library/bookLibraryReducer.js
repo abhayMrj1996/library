@@ -54,8 +54,7 @@ export const bookLibraryReducer = (state = initialState, action) => {
             ...state,
             initialBookList: [...state.initialBookList, action.payload]
         }
-        case DELETEROW:
-            console.log(action)
+        case DELETEROW:            
             return {
                 ...state,
                 initialBookList: action.payload
