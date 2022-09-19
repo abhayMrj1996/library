@@ -16,8 +16,9 @@ export const clickLogout = logout_state => {
 }
 
 const initialState = {
-    initialLogIn: false
+    initialLogIn: {}
 }
+console.log("****",initialState)
 
 export const authentication = (state = initialState, action) => {
     switch (action.type) {
@@ -25,11 +26,17 @@ export const authentication = (state = initialState, action) => {
             const newAuthntication = [...UserAuth];
             const checkAuthtication = newAuthntication.find((data) =>
                 data.userId === action.payload.userId &&
-                data.password === action.payload.password)        
-            
+                data.password === action.payload.password)    
+                
+            if(checkAuthtication){
+                localStorage.setItem('loginValues', JSON.stringify(action.payload));
+                console.log("****",state)
+            }    
+            const checklocalStorage = JSON.parse(localStorage.getItem('loginValues'));
+            console.log("local storage",checklocalStorage);
             return {
                 ...state,
-                initialLogIn: !checkAuthtication ? false : true
+                initialLogIn: checkAuthtication ? {...action.payload, loginState:true} : {}
             }
         }
 

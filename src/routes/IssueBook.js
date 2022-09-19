@@ -22,8 +22,8 @@ function IssueBook() {
 
   const [issuedData, setIssuedData] = useState({
     barCode: "",
-    nameOfBook: "",
-    // issuedBookQuantity: "",
+    book_barcode:"",
+    
   });
 
   const [dataBarCode, setDataBarCode] = useState();
@@ -42,30 +42,18 @@ function IssueBook() {
       data.barCode === e.target.value)
     if (reqData) { setDataBarCode([reqData]) }
 
-    // //find number of book for comparision
-    // if (name === 'nameOfBook') {
-    //   const issueBookLimitComparision = initialBookList.find((data) =>
-    //     data.nameOfBook === value)
-    //  if (issueBookLimitComparision) {setBookReqData(issueBookLimitComparision)}
-    // }
-  };
+    };
 
   const handelFormSubmit = (e) => {
     e.preventDefault();
     dispatch(subtractBookQuantity(displayIssueBooks));
     dispatch(addIssueDataToStudent(displayIssueBooks));
-    setDisplayIssueBooks([]);
-    // dispatch(addBookIssueDataInStudentList(issuedData));
+    setDisplayIssueBooks([]);  
   };
-  const handelReturnBook = (student_barCode, book_name) => {
-    const return_data = {
-      barCode: student_barCode,
-      nameOfBook: book_name,
-    };
-    // dispatch(returnBook(return_data));
-    // dispatch(addReturnedBook(return_data));
-    // dispatch(removeReturnDataFromStudentList(return_data))
-  };
+  
+  
+
+  // heading
   const HEADING = Object.keys(issuedData);
 
   useEffect(() => {
@@ -78,7 +66,7 @@ function IssueBook() {
   }, [issuedData]);
 
   useEffect(() => {
-    if (!!issuedData.barCode && !!issuedData.nameOfBook) {
+    if (!!issuedData.barCode && !!issuedData.book_barcode) {
       setButtonState(false);
     } else {
       setButtonState(true);
@@ -86,21 +74,23 @@ function IssueBook() {
   }, [issuedData]);
 
   useEffect(() => {
-    if (!!issuedData.barCode && !!issuedData.nameOfBook) {
-      let books = issuedData.nameOfBook.split(",");
+    if (!!issuedData.barCode && !!issuedData.book_barcode) {
+      console.log('!!useEffect')
+      let books = issuedData.book_barcode.split(",");
       for (let i = 0; i < books.length; i++) {
         let checkBook = initialBookList.find(
-          (data) => data.nameOfBook === books[i]
-        );
+          (data) => data.barCode === books[i]);
+        console.log("found book",checkBook)
        
         const dataPresent = displayIssueBooks.find(
           (data) => data.barCode===issuedData.barCode && data.issued_Books === books[i]
         );
+        console.log("dataPresent?",dataPresent)
+        // console.log("if condition","1",checkBook,"2",dataPresent,"3",books[i],"4",checkBook.book_barcode)
         
 
-        if (!!checkBook && books[i] === checkBook.nameOfBook && !dataPresent) {
-          // setIssuedData({...issuedData, nameOfBook:''})
-
+        if (!!checkBook && books[i] === checkBook.barCode && !dataPresent) {
+          
           setDisplayIssueBooks([
             ...displayIssueBooks,
             { barCode: issuedData.barCode, issued_Books: books[i] },
@@ -108,7 +98,10 @@ function IssueBook() {
         }
       }
     }
-  }, [issuedData.nameOfBook]);
+  }, [issuedData.book_barcode]);
+
+  console.log("formChange",issuedData)
+  console.log("data to dispatch!!",displayIssueBooks)
 
   
 
@@ -135,9 +128,9 @@ function IssueBook() {
               <Grid xs={12} item>
                 <TextValidator
                   type="text"
-                  name="nameOfBook"
+                  name="book_barcode"
                   label="book id"
-                  value={issuedData.nameOfBook}
+                  value={issuedData.book_barcode}
                   onChange={handleFormChange}
                   validators={["required"]}
                   errorMessages={["this field is required"]}
@@ -145,18 +138,6 @@ function IssueBook() {
                 />
               </Grid>
 
-              {/* <Grid xs={12} item>
-                <TextValidator
-                  label="enter bookQuantity"
-                  variant="outlined"
-                  name="issuedBookQuantity"
-                  value={issuedData.issuedBookQuantity}
-                  onChange={handleFormChange}
-                  type="number"
-                  validators={['limitCheck', 'required']}
-                  errorMessages={['limit exceeded', 'this field is required']}
-                  fullWidth />
-              </Grid> */}
               <Grid xs={12} item>
                 <Button
                   type="submit"
@@ -187,16 +168,7 @@ function IssueBook() {
         ) : (
           <div></div>
         )}
-      </ul>
-
-      <TableComponent
-        data={initialIssueBookDataArray}
-        HEADING={HEADING}
-        handelReturnBook={handelReturnBook}
-        tableID="issueBook"
-      />
-
-      
+      </ul>          
 
       {!!displayIssueBooks && displayIssueBooks.length > 0 ? (
         <TableContainer component={Paper}>

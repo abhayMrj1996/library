@@ -8,17 +8,17 @@ function NavBar() {
     const initialLogIn = useSelector((state) => state.loginAuth.initialLogIn);
     const navigate = useNavigate();
     const goToLibrary = () => {
-        if (initialLogIn) {
+        if (initialLogIn.loginState) {
             navigate("/book-library")
         }
     }
     const goToStudentList = () => {
-        if (initialLogIn) {
+        if (initialLogIn.loginState) {
             navigate("/student-library")
         }
     }
     const goToLogin = () => {
-        if (initialLogIn) {
+        if (initialLogIn.loginState) {
             navigate("/")
         }
     }

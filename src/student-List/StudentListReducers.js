@@ -68,23 +68,25 @@ export const studentListReducer = (state = initialState, action) => {
             }
             case REMOVE_RETURNED_BOOK_DATA_STUDENTLIST:
                 const chgAddReturnedBook=[...state.initialStudentData]; 
+                let temp_book_returned_array=[...action.payload.totalbooknameIssuedTo];
                 let  finalStudentListAfterReturn ;
+
                 action.payload.totalbooknameIssuedTo.forEach((returned_book)=>{
                     let find_student=chgAddReturnedBook.find((data)=>data.barCode===action.payload.barCode);
                     console.log("find_student",find_student)
 
                     if(find_student){
-                       const removed_book_array = action.payload.totalbooknameIssuedTo.filter((data)=>data!==returned_book);
+                       const removed_book_array = temp_book_returned_array.filter((data)=>data!==returned_book);
                        console.log("removed_book_array",removed_book_array)
                         find_student.totalbooknameIssuedTo = removed_book_array;
+                        temp_book_returned_array = removed_book_array
                         find_student.totalBookIssuedTo = parseInt(find_student.totalBookIssuedTo) - 1 
 
                         console.log("find_student ##2",find_student)
                     }
 
                     const otherNonRetuenStudent = chgAddReturnedBook.filter(
-                        (data) => data.barCode !== find_student.barCode
-                    );
+                        (data) => data.barCode !== find_student.barCode);
                     console.log("otherNonRetuenStudent",otherNonRetuenStudent)
 
                     finalStudentListAfterReturn = [...otherNonRetuenStudent, find_student]; 

@@ -16,12 +16,12 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import {addReturnedBook } from "../Book-Library/bookLibraryReducer";
-import {removeReturnDataFromStudentList} from "../student-List/StudentListReducers";
+import { addReturnedBook } from "../Book-Library/bookLibraryReducer";
+import { removeReturnDataFromStudentList } from "../student-List/StudentListReducers";
 import { useNavigate } from "react-router-dom";
 
 function StudentLibrary() {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const displayStudentData = useSelector(
     (state) => state.student.initialStudentData
@@ -40,14 +40,14 @@ function StudentLibrary() {
     first_name: "",
     last_name: "",
     barCode: "",
-    totalbooknameIssuedTo: []
+    totalbooknameIssuedTo: [],
   });
 
   //navigate
-  const goToAddStudent =()=>{
-    navigate("/add-student")
-  }
-  
+  const goToAddStudent = () => {
+    navigate("/add-student");
+  };
+
   // search for student
   const handleSearchStudent = (e) => {
     const { value } = e.target;
@@ -91,7 +91,6 @@ function StudentLibrary() {
     First_name,
     Last_name
   ) => {
-   
     setIssuedBooks({
       ...issuedBooks,
       first_name: First_name,
@@ -111,25 +110,26 @@ function StudentLibrary() {
   const handleClose = () => {
     setOpen(false);
     setSelectedBooks([]);
-    setDataToDispatch({first_name: "",
-    last_name: "",
-    barCode: "",
-    totalbooknameIssuedTo: []
-  })
+    setDataToDispatch({
+      first_name: "",
+      last_name: "",
+      barCode: "",
+      totalbooknameIssuedTo: [],
+    });
   };
-  
+
   const handleBookSelect = (e) => {
-    const {target: { value },} = e;
-    setSelectedBooks(typeof value === 'string' ? value.split(',') : value,
-    );  
+    const {
+      target: { value },
+    } = e;
+    setSelectedBooks(typeof value === "string" ? value.split(",") : value);
     setDataToDispatch({
       ...dataToDispatch,
-      totalbooknameIssuedTo: e.target.value
+      totalbooknameIssuedTo: e.target.value,
     });
   };
 
   const handelReturnBook = () => {
-    
     dispatch(addReturnedBook(dataToDispatch));
     dispatch(removeReturnDataFromStudentList(dataToDispatch));
     setOpen(false);
@@ -137,29 +137,80 @@ function StudentLibrary() {
 
   //multipleselect
   const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
     },
-  },
-};
+  };
 
   //Heading
-  const HEADING = Object.keys(pageData[0]);
+  const HEADING = [
+    {
+      key: 1,
+      label: "first_name",
+      formatFunction: (value) => value,
+    },
+    {
+      key: 2,
+      label: "last_name",
+      formatFunction: (value) => value,
+    },
+    {
+      key: 3,
+      label: "email",
+      formatFunction: (value) => value,
+    },
+    {
+      key: 4,
+      label: "totalBookIssuedTo",
+      formatFunction: (value) => value,
+    },
+    {
+      key: 5,
+      label: "totalbooknameIssuedTo",
+      formatFunction: (value) => value.join(","),
+    },
+    {
+      key: 6,
+      label: "barCode",
+      formatFunction: (value) => value,
+    },
+  ];
 
-  console.log("!!!",selectedBooks)
-  console.log("###",dataToDispatch)
-  
+  const otherData = [
+    {
+      key: "00001",
+      label: "return",
+      render: (tableData) => {
+        return (
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() =>
+              handleClickOpen(
+                tableData.totalbooknameIssuedTo,
+                tableData.barCode,
+                tableData.first_name,
+                tableData.last_name
+              )
+            }
+          >Return book</Button>
+        );
+      },
+    },
+  ];
 
   return (
     <div>
       <main style={{ padding: "1rem 0" }}>
         <h2>STUDENT LIST</h2>
-        <Button variant="outlined" onClick={goToAddStudent}>Add student</Button>
-        
+        <Button variant="outlined" onClick={goToAddStudent}>
+          Add student
+        </Button>
       </main>
 
       <Dialog
@@ -182,25 +233,25 @@ const MenuProps = {
                 ))}
             </Typography>
             <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-name-label">Select Book</InputLabel>
-        <Select
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
-          label="Select Book"
-          multiple
-          value={selectedBooks}
-          onChange={handleBookSelect}          
-          MenuProps={MenuProps}
-        >
-          <MenuItem value="">
+              <InputLabel id="demo-multiple-name-label">Select Book</InputLabel>
+              <Select
+                labelId="demo-multiple-name-label"
+                id="demo-multiple-name"
+                label="Select Book"
+                multiple
+                value={selectedBooks}
+                onChange={handleBookSelect}
+                MenuProps={MenuProps}
+              >
+                <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
                 {!!issuedBooks &&
                   issuedBooks.totalbooknameIssuedTo.map((data) => (
                     <MenuItem value={data}>{data}</MenuItem>
                   ))}
-        </Select>
-      </FormControl>
+              </Select>
+            </FormControl>
             {/* <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
               <InputLabel id="demo-select-small">Select Book</InputLabel>
               <Select
@@ -251,6 +302,7 @@ const MenuProps = {
             tableID="student"
             HEADING={HEADING}
             handleClickOpen={handleClickOpen}
+            otherData={otherData}
           />
         </Grid>
         <Grid xs={12} sx={{ textAlign: "center" }} item>

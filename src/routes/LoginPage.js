@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { loginAuth } from "../loginAuthenticaton/loginAuthReducer";
 import { useNavigate } from "react-router-dom";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { Test_data } from "../example";
 
 
 const LoginPage = () => {
@@ -19,14 +20,25 @@ const LoginPage = () => {
     userId: '',
     password: '',
     showPassword: false,
+    loginState: false
+  });
+  console.log("in login page",JSON.parse(localStorage.getItem('loginValues')));
+
+  React.useEffect(()=>{
+    const value = JSON.parse(localStorage.getItem('loginValues'));
+  if (value) {
+   setValues(value);
+   dispatch(loginAuth(JSON.parse(localStorage.getItem('loginValues'))));
+   
+  }
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const testing=[...Test_data];
 
-
-  const handleLogin = () => {
-
+  const handleLogin = (e) => {
+    e.preventDefault();
     dispatch(loginAuth(values));
     navigate("/book-library", { replace: true })
 
@@ -47,7 +59,6 @@ const LoginPage = () => {
     event.preventDefault();
   };
 
-  
 
   React.useEffect(()=>{
     ValidatorForm.addValidationRule('beginWithSpace', () => {
@@ -113,6 +124,7 @@ const LoginPage = () => {
           </ValidatorForm>
         </CardContent>
       </Card>
+      <h1>test this:{testing[0].test_array_data([1,2,3,4,5])}</h1>
     </div>
   )
 }

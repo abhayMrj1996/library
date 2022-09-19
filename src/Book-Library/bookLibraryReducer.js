@@ -68,12 +68,12 @@ export const BookLibraryReducer = (state = initialState, action) => {
             const chgContacts = [...state.initialBookList];
             let filteredFinalBook;
             action.payload.forEach((issue_Entry) => {
-                let find_book = chgContacts.find((data)=>data.nameOfBook===issue_Entry.issued_Books);
+                let find_book = chgContacts.find((data)=>data.barCode===issue_Entry.issued_Books);
                 console.log("find_book",find_book)
                 if(find_book){
                     find_book.numberOfBooks=find_book.numberOfBooks - 1
                 };
-                let unSubtractedList=chgContacts.filter((data)=>data.nameOfBook !== issue_Entry.issued_Books);
+                let unSubtractedList=chgContacts.filter((data)=>data.barCode !== issue_Entry.issued_Books);
                 console.log("unSubtractedList",unSubtractedList)
                 let finalBooks=[...unSubtractedList,find_book];
                 console.log("finalBooks",finalBooks)
@@ -93,12 +93,12 @@ export const BookLibraryReducer = (state = initialState, action) => {
             const returnDataToLibraty = [...state.initialBookList];
             let finalBookList
             const search_for_book = action.payload.totalbooknameIssuedTo.forEach((book) => {
-                let find_book_in_list = returnDataToLibraty.find((data)=>data.nameOfBook===book);
+                let find_book_in_list = returnDataToLibraty.find((data)=>data.barCode === book);
                 if(find_book_in_list){
                     find_book_in_list.numberOfBooks = parseInt(find_book_in_list.numberOfBooks) + 1
                 }
                 const otherUnChangedBooks = returnDataToLibraty.filter(
-                    (no) => no.nameOfBook !== find_book_in_list.nameOfBook
+                    (no) => no.barCode !== find_book_in_list.barCode
                 );
                  finalBookList = [...otherUnChangedBooks, find_book_in_list];
             });          

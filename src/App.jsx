@@ -12,6 +12,7 @@ import AddStudent from './routes/AddStudent';
 
 
 function App() {    
+  
    
   return (
 
@@ -27,6 +28,7 @@ function App() {
       </Routes>
 
       <Outlet />
+      
 
     </div>
   );
