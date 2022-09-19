@@ -9,7 +9,6 @@ import Button from "@mui/material/Button";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import TableComponent from "../table/tableComponent";
-import Barcode from "react-barcode";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -19,9 +18,11 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import {addReturnedBook } from "../Book-Library/bookLibraryReducer";
 import {removeReturnDataFromStudentList} from "../student-List/StudentListReducers";
+import { useNavigate } from "react-router-dom";
 
 function StudentLibrary() {
   const dispatch=useDispatch();
+  const navigate = useNavigate();
   const displayStudentData = useSelector(
     (state) => state.student.initialStudentData
   );
@@ -41,6 +42,11 @@ function StudentLibrary() {
     barCode: "",
     totalbooknameIssuedTo: []
   });
+
+  //navigate
+  const goToAddStudent =()=>{
+    navigate("/add-student")
+  }
   
   // search for student
   const handleSearchStudent = (e) => {
@@ -113,26 +119,47 @@ function StudentLibrary() {
   };
   
   const handleBookSelect = (e) => {
-    setSelectedBooks([...selectedBooks, e.target.value]);
+    const {target: { value },} = e;
+    setSelectedBooks(typeof value === 'string' ? value.split(',') : value,
+    );  
     setDataToDispatch({
       ...dataToDispatch,
-      totalbooknameIssuedTo: [...dataToDispatch.totalbooknameIssuedTo, e.target.value],
+      totalbooknameIssuedTo: e.target.value
     });
   };
+
   const handelReturnBook = () => {
     
     dispatch(addReturnedBook(dataToDispatch));
-    dispatch(removeReturnDataFromStudentList(dataToDispatch))
+    dispatch(removeReturnDataFromStudentList(dataToDispatch));
+    setOpen(false);
   };
+
+  //multipleselect
+  const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
   //Heading
   const HEADING = Object.keys(pageData[0]);
+
+  console.log("!!!",selectedBooks)
+  console.log("###",dataToDispatch)
   
 
   return (
     <div>
       <main style={{ padding: "1rem 0" }}>
         <h2>STUDENT LIST</h2>
+        <Button variant="outlined" onClick={goToAddStudent}>Add student</Button>
+        
       </main>
 
       <Dialog
@@ -154,7 +181,27 @@ function StudentLibrary() {
                   <Typography value={data}>{data}</Typography>
                 ))}
             </Typography>
-            <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+            <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-name-label">Select Book</InputLabel>
+        <Select
+          labelId="demo-multiple-name-label"
+          id="demo-multiple-name"
+          label="Select Book"
+          multiple
+          value={selectedBooks}
+          onChange={handleBookSelect}          
+          MenuProps={MenuProps}
+        >
+          <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {!!issuedBooks &&
+                  issuedBooks.totalbooknameIssuedTo.map((data) => (
+                    <MenuItem value={data}>{data}</MenuItem>
+                  ))}
+        </Select>
+      </FormControl>
+            {/* <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
               <InputLabel id="demo-select-small">Select Book</InputLabel>
               <Select
                 labelId="demo-select-small"
@@ -170,7 +217,7 @@ function StudentLibrary() {
                     <MenuItem value={data}>{data}</MenuItem>
                   ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -218,7 +265,6 @@ function StudentLibrary() {
           </Button>
         </Grid>
       </Grid>
-      <Barcode value={"student2022A1"} renderer={"img"} height={30} width={1} />
     </div>
   );
 }

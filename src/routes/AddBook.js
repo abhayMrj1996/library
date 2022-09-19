@@ -19,14 +19,16 @@ function AddBook() {
     publishing: "",
     publisher: "",
     price: "",
-    numberOfBooks: ""
+    numberOfBooks: "",
+    barCode: ""
   });
   const handleAddFormChange = (e) => {
     const { name, value } = e.target;
     const EmptyInput = { ...newBook };
     EmptyInput[name] = value;
     console.log(initialBookList.length);
-    EmptyInput.id = initialBookList.length + 1
+    EmptyInput.id = initialBookList.length + 1;
+    EmptyInput.barCode = "book2022A" + EmptyInput.id;
     setNewBook(EmptyInput);
 
   }

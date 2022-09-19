@@ -7,12 +7,12 @@ import BookLibrary from "./routes/BookLibrary.jsx";
 import IssueBook from "./routes/IssueBook.js";
 import AddBook from "./routes/AddBook.js";
 import LoginPage from './routes/LoginPage';
-import { useSelector, } from "react-redux";
 import ProtectedRoutes from './routes/ProtectedRoutes';
+import AddStudent from './routes/AddStudent';
 
 
 function App() {    
-    const initialLogIn=useSelector((state) => state.loginAuth.initialLogIn);   
+   
   return (
 
     <div className="App">
@@ -23,6 +23,7 @@ function App() {
           <Route path="issue-book" element={<ProtectedRoutes Components={IssueBook}/>} />
           <Route path="add-book" element={<ProtectedRoutes Components={AddBook}/>} />
           <Route path="student-library" element={<ProtectedRoutes Components={StudentLibrary}/>} />
+          <Route path="add-student" element={<ProtectedRoutes Components={AddStudent}/>} />
       </Routes>
 
       <Outlet />

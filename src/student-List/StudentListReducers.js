@@ -1,8 +1,14 @@
-import { BOOKISSUECHECK, TOTALISSUEDATAINSTUDENT, REMOVE_RETURNED_BOOK_DATA_STUDENTLIST } from "./studentActions";
+import { BOOKISSUECHECK, TOTALISSUEDATAINSTUDENT, REMOVE_RETURNED_BOOK_DATA_STUDENTLIST,ADD_STUDENT } from "./studentActions";
 import DataStudent from "../routes/studentData.json";
 
 
 // aCTIONS
+export const addStudentToList = newStudent =>{
+    return{
+        type: ADD_STUDENT,
+        payload: newStudent
+    }
+}
 export const searchForIssuedBookAndStudent = () => {
     return {
         type: BOOKISSUECHECK
@@ -32,6 +38,10 @@ const initialState = {
 // reducer
 export const studentListReducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_STUDENT: return {
+            ...state,
+            initialStudentData: [...state.initialStudentData, action.payload]
+        }
         case TOTALISSUEDATAINSTUDENT:
             const chgDataStudent = [...state.initialStudentData];  
             let sortList    

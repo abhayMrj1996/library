@@ -77,8 +77,18 @@ function TableComponent(props) {
                     </TableCell>
                     </>
                 )}
-                <TableCell>
-                  {props.tableID === "book" ? (
+                
+                  {props.tableID === "book" ?
+                  <>
+                   <TableCell> 
+                    <Barcode
+                        value={array.barCode}
+                        renderer={"img"}
+                        height={30}
+                        width={1}
+                        fontSize={12}
+                      /></TableCell>
+                  <TableCell> 
                     <Button
                       onClick={() => props.handleClickOpen(array.id)}
                       variant="contained"
@@ -86,10 +96,11 @@ function TableComponent(props) {
                       Delete
                       <DeleteIcon />
                     </Button>
-                  )  : (
+                   </TableCell>                   
+                   </>: (
                     []
                   )}
-                </TableCell>
+                
               </TableRow>
             ))}
           </TableBody>
