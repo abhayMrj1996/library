@@ -123,8 +123,7 @@ const LoginPage = () => {
             </Grid>
           </ValidatorForm>
         </CardContent>
-      </Card>
-      <h1>test this:{testing[0].test_array_data([1,2,3,4,5])}</h1>
+      </Card>      
     </div>
   )
 }

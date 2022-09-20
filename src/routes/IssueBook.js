@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addReturnedBook,subtractBookQuantity } from "../Book-Library/bookLibraryReducer";
-import { addIssueDataToStudent,  removeReturnDataFromStudentList,} from "../student-List/StudentListReducers";
+import {
+  addReturnedBook,
+  subtractBookQuantity,
+} from "../Book-Library/bookLibraryReducer";
+import {
+  addIssueDataToStudent,
+  removeReturnDataFromStudentList,
+} from "../student-List/StudentListReducers";
 import { addBookIssueDataInStudentList } from "../issueBookList/issueBookListReducer";
 import { returnBook } from "../issueBookList/issueBookListReducer";
 import { MenuItem, Select } from "@mui/material";
@@ -10,7 +16,15 @@ import TextField from "@mui/material/TextField";
 import { Card, CardContent, Typography, Grid } from "@mui/material";
 import TableComponent from "../table/tableComponent";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { Table, TableBody, TableHead, TableRow, TableCell, TableContainer, Paper } from '@mui/material';
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableContainer,
+  Paper,
+} from "@mui/material";
 
 function IssueBook() {
   const dispatch = useDispatch();
@@ -22,8 +36,7 @@ function IssueBook() {
 
   const [issuedData, setIssuedData] = useState({
     barCode: "",
-    book_barcode:"",
-    
+    book_barcode: "",
   });
 
   const [dataBarCode, setDataBarCode] = useState();
@@ -38,20 +51,29 @@ function IssueBook() {
     setIssuedData(EmptyInput);
 
     // dispaly studentinfo
-    const reqData = initialStudentData.find((data) =>
-      data.barCode === e.target.value)
-    if (reqData) { setDataBarCode([reqData]) }
-
-    };
+    const reqData = initialStudentData && initialStudentData.length &&  initialStudentData.find(
+      (data) => data.barCode === e.target.value
+    );
+    if (Object.keys(reqData).length) {
+      setDataBarCode([reqData]);
+    }
+  };
 
   const handelFormSubmit = (e) => {
     e.preventDefault();
     dispatch(subtractBookQuantity(displayIssueBooks));
     dispatch(addIssueDataToStudent(displayIssueBooks));
-    setDisplayIssueBooks([]);  
+    setDisplayIssueBooks([]);
   };
-  
-  
+
+  //Delete
+  const handleCancel = (studentBarcode, bookBarcode) => {
+    const filteredDisplayData = displayIssueBooks.filter(
+      (data) =>
+        data.barCode !== studentBarcode || data.issued_Books !== bookBarcode
+    );
+    setDisplayIssueBooks(filteredDisplayData);
+  };
 
   // heading
   const HEADING = Object.keys(issuedData);
@@ -66,7 +88,7 @@ function IssueBook() {
   }, [issuedData]);
 
   useEffect(() => {
-    if (!!issuedData.barCode && !!issuedData.book_barcode) {
+    if (!!displayIssueBooks.length) {
       setButtonState(false);
     } else {
       setButtonState(true);
@@ -75,35 +97,46 @@ function IssueBook() {
 
   useEffect(() => {
     if (!!issuedData.barCode && !!issuedData.book_barcode) {
-      console.log('!!useEffect')
-      let books = issuedData.book_barcode.split(",");
-      for (let i = 0; i < books.length; i++) {
-        let checkBook = initialBookList.find(
-          (data) => data.barCode === books[i]);
-        console.log("found book",checkBook)
-       
-        const dataPresent = displayIssueBooks.find(
-          (data) => data.barCode===issuedData.barCode && data.issued_Books === books[i]
-        );
-        console.log("dataPresent?",dataPresent)
-        // console.log("if condition","1",checkBook,"2",dataPresent,"3",books[i],"4",checkBook.book_barcode)
-        
+      console.log("!!useEffect");
 
-        if (!!checkBook && books[i] === checkBook.barCode && !dataPresent) {
-          
+      const dataPresent = displayIssueBooks.find(
+        //check if the input book is already present in array to be dispatched(displayIssuedBooks)??
+        (data) =>
+          data.barCode === issuedData.barCode &&
+          data.issued_Books === issuedData.book_barcode
+      );
+      console.log("dataPresent?", dataPresent);
+
+      if (!dataPresent) {
+        // if not present
+
+        let checkBook = initialBookList.find(
+          // check if the book is present in the book list
+          (data) => data.barCode === issuedData.book_barcode
+        );
+        console.log("found book", checkBook);
+
+        if (!!checkBook) {
+          // if book is present in book list , set the data in displayIssuedBooks
           setDisplayIssueBooks([
             ...displayIssueBooks,
-            { barCode: issuedData.barCode, issued_Books: books[i] },
+            {
+              barCode: issuedData.barCode,
+              issued_Books: issuedData.book_barcode,
+            },
           ]);
+          console.log("display in useEffect", displayIssueBooks);
+          setTimeout(
+            () => setIssuedData({ ...issuedData, book_barcode: "" }), //clear input book barcode after 5 seconds
+            1000
+          );
         }
       }
     }
   }, [issuedData.book_barcode]);
 
-  console.log("formChange",issuedData)
-  console.log("data to dispatch!!",displayIssueBooks)
-
-  
+  console.log("formChange", issuedData);
+  console.log("data to dispatch!!", displayIssueBooks);
 
   return (
     <div>
@@ -168,7 +201,7 @@ function IssueBook() {
         ) : (
           <div></div>
         )}
-      </ul>          
+      </ul>
 
       {!!displayIssueBooks && displayIssueBooks.length > 0 ? (
         <TableContainer component={Paper}>
@@ -200,6 +233,15 @@ function IssueBook() {
                 >
                   books issued
                 </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: 18,
+                    bgcolor: "text.disabled",
+                    color: "background.paper",
+                  }}
+                >
+                  Cancel
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -207,6 +249,13 @@ function IssueBook() {
                 <TableRow key={index}>
                   <TableCell>{data.barCode}</TableCell>
                   <TableCell>{data.issued_Books}</TableCell>
+                  <TableCell>
+                    <Button
+                      onClick={()=>handleCancel(data.barCode, data.issued_Books)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

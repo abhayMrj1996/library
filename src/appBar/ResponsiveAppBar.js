@@ -44,6 +44,8 @@ const ResponsiveAppBar = (props) => {
 
   const handleLogout = () => {
     dispatch(clickLogout(logout_state));
+    setAnchorElNav(null);
+    setAnchorElUser(null);
   }
 
 

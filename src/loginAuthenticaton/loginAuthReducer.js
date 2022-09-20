@@ -30,7 +30,7 @@ export const authentication = (state = initialState, action) => {
                 
             if(checkAuthtication){
                 localStorage.setItem('loginValues', JSON.stringify(action.payload));
-                console.log("****",state)
+                
             }    
             const checklocalStorage = JSON.parse(localStorage.getItem('loginValues'));
             console.log("local storage",checklocalStorage);
@@ -41,6 +41,7 @@ export const authentication = (state = initialState, action) => {
         }
 
         case CLICK_LOGOUT: {
+            localStorage.removeItem("loginValues");
             return action.payload === true ? {
                 ...state,
                 initialLogIn: false
