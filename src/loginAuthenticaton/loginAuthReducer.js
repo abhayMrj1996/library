@@ -2,6 +2,7 @@ import { AUTHENTICATION, CLICK_LOGOUT } from "./loginAuthActions";
 import UserAuth from "./userAuthentication.json";
 
 export const loginAuth = values => {   
+    console.log("###",values)
     return {
         type: AUTHENTICATION,
         payload: values,
@@ -32,8 +33,6 @@ export const authentication = (state = initialState, action) => {
                 localStorage.setItem('loginValues', JSON.stringify(action.payload));
                 
             }    
-            const checklocalStorage = JSON.parse(localStorage.getItem('loginValues'));
-            console.log("local storage",checklocalStorage);
             return {
                 ...state,
                 initialLogIn: checkAuthtication ? {...action.payload, loginState:true} : {}

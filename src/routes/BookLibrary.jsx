@@ -19,6 +19,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Barcode from "react-barcode";
+import { loginAuth } from "../loginAuthenticaton/loginAuthReducer";
 
 function BookLibrary() {
   const dispatch = useDispatch();
@@ -28,6 +29,13 @@ function BookLibrary() {
   const [list, setList] = useState();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  React.useEffect(()=>{
+    const value = JSON.parse(localStorage.getItem('loginValues'));
+    if (value) {    
+    dispatch(loginAuth(JSON.parse(localStorage.getItem('loginValues'))));   
+   }
+   },[]);
 
   // search book
   const handleSearchBook = (e) => {
@@ -69,8 +77,7 @@ function BookLibrary() {
   const handleClickOpen = (rowId) => {
     const newBookList = [...displayBookData];
     const index = newBookList.findIndex((deleteID) => deleteID.id === rowId);
-    newBookList.splice(index, 1);
-    console.log(list,newBookList)
+    newBookList.splice(index, 1);  
     setList(newBookList);
     setOpen(true);
   };
@@ -121,8 +128,7 @@ function BookLibrary() {
     {
       key: "1666",
       label: "barCode",
-      render: (tableData) => {
-        console.log("---", tableData.barCode);
+      render: (tableData) => {      
         return (
           <Barcode
             value={tableData.barCode}

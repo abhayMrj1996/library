@@ -1,8 +1,6 @@
 import React from "react";
-import { Button, Grid, TextField, Card, CardContent } from "@mui/material";
+import { Button, Grid, Card, CardContent } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
@@ -12,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { loginAuth } from "../loginAuthenticaton/loginAuthReducer";
 import { useNavigate } from "react-router-dom";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { Test_data } from "../example";
+
 
 
 const LoginPage = () => {
@@ -22,20 +20,18 @@ const LoginPage = () => {
     showPassword: false,
     loginState: false
   });
-  console.log("in login page",JSON.parse(localStorage.getItem('loginValues')));
 
   React.useEffect(()=>{
-    const value = JSON.parse(localStorage.getItem('loginValues'));
-  if (value) {
+   const value = JSON.parse(localStorage.getItem('loginValues'));
+   if (value) {
    setValues(value);
-   dispatch(loginAuth(JSON.parse(localStorage.getItem('loginValues'))));
-   
+   dispatch(loginAuth(JSON.parse(localStorage.getItem('loginValues'))));   
   }
-  });
+  },[]);
+ 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const testing=[...Test_data];
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -44,8 +40,8 @@ const LoginPage = () => {
 
   }
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+  const handleChange = (prop) => (event) => {    
+    setValues({ ...values, [prop]: event.target.value, loginState: true });
   };
 
   const handleClickShowPassword = () => {
@@ -68,6 +64,9 @@ const LoginPage = () => {
       return true;
   });
   })
+  
+
+  console.log("login",values)
 
 
   return (

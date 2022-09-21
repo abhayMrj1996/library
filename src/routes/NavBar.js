@@ -18,7 +18,7 @@ function NavBar() {
         }
     }
     const goToLogin = () => {
-        if (initialLogIn.loginState) {
+        if (!initialLogIn) {
             navigate("/")
         }
     }

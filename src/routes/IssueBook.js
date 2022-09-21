@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addReturnedBook,
   subtractBookQuantity,
 } from "../Book-Library/bookLibraryReducer";
 import {
   addIssueDataToStudent,
-  removeReturnDataFromStudentList,
 } from "../student-List/StudentListReducers";
-import { addBookIssueDataInStudentList } from "../issueBookList/issueBookListReducer";
-import { returnBook } from "../issueBookList/issueBookListReducer";
-import { MenuItem, Select } from "@mui/material";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import { Card, CardContent, Typography, Grid } from "@mui/material";
-import TableComponent from "../table/tableComponent";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import {
   Table,
@@ -25,12 +18,10 @@ import {
   TableContainer,
   Paper,
 } from "@mui/material";
+import Barcode from "react-barcode";
 
 function IssueBook() {
   const dispatch = useDispatch();
-  const { initialIssueBookDataArray } = useSelector(
-    (state) => state.issuedataArray
-  );
   const { initialStudentData } = useSelector((state) => state.student);
   const { initialBookList } = useSelector((state) => state.book);
 
@@ -40,7 +31,6 @@ function IssueBook() {
   });
 
   const [dataBarCode, setDataBarCode] = useState();
-  const [bookReqData, setBookReqData] = useState();
   const [buttonState, setButtonState] = useState(true);
   const [displayIssueBooks, setDisplayIssueBooks] = useState([]);
 
@@ -51,7 +41,7 @@ function IssueBook() {
     setIssuedData(EmptyInput);
 
     // dispaly studentinfo
-    const reqData = initialStudentData && initialStudentData.length &&  initialStudentData.find(
+    const reqData = initialStudentData && initialStudentData.length && initialStudentData.find(
       (data) => data.barCode === e.target.value
     );
     if (Object.keys(reqData).length) {
@@ -75,18 +65,6 @@ function IssueBook() {
     setDisplayIssueBooks(filteredDisplayData);
   };
 
-  // heading
-  const HEADING = Object.keys(issuedData);
-
-  useEffect(() => {
-    ValidatorForm.addValidationRule("limitCheck", (value) => {
-      if (value > bookReqData.numberOfBooks) {
-        return false;
-      }
-      return true;
-    });
-  }, [issuedData]);
-
   useEffect(() => {
     if (!!displayIssueBooks.length) {
       setButtonState(false);
@@ -97,7 +75,6 @@ function IssueBook() {
 
   useEffect(() => {
     if (!!issuedData.barCode && !!issuedData.book_barcode) {
-      console.log("!!useEffect");
 
       const dataPresent = displayIssueBooks.find(
         //check if the input book is already present in array to be dispatched(displayIssuedBooks)??
@@ -105,7 +82,6 @@ function IssueBook() {
           data.barCode === issuedData.barCode &&
           data.issued_Books === issuedData.book_barcode
       );
-      console.log("dataPresent?", dataPresent);
 
       if (!dataPresent) {
         // if not present
@@ -114,7 +90,6 @@ function IssueBook() {
           // check if the book is present in the book list
           (data) => data.barCode === issuedData.book_barcode
         );
-        console.log("found book", checkBook);
 
         if (!!checkBook) {
           // if book is present in book list , set the data in displayIssuedBooks
@@ -122,10 +97,10 @@ function IssueBook() {
             ...displayIssueBooks,
             {
               barCode: issuedData.barCode,
+              nameOfBook: checkBook.nameOfBook,
               issued_Books: issuedData.book_barcode,
             },
           ]);
-          console.log("display in useEffect", displayIssueBooks);
           setTimeout(
             () => setIssuedData({ ...issuedData, book_barcode: "" }), //clear input book barcode after 5 seconds
             1000
@@ -165,8 +140,6 @@ function IssueBook() {
                   label="book id"
                   value={issuedData.book_barcode}
                   onChange={handleFormChange}
-                  validators={["required"]}
-                  errorMessages={["this field is required"]}
                   fullWidth
                 />
               </Grid>
@@ -184,24 +157,24 @@ function IssueBook() {
           </ValidatorForm>
         </CardContent>
       </Card>
+      <br />
 
       <ul>
         {!!dataBarCode ? (
           dataBarCode.map((data) => (
             <>
-              <div>Student InFo</div>
-              <div>id :{data.id}</div>
-              <div>First name:{data.first_name}</div>
-              <div>Last name:{data.last_name}</div>
-              <div>Gender:{data.gender}</div>
-              <div>Email:{data.email}</div>
-              <div>barCode:{data.barCode}</div>
+              <Typography variant="h5">Student Information</Typography>
+              <Typography variant="h6">id :{data.id}</Typography>
+              <Typography variant="h6">Name:{data.first_name} {data.last_name}</Typography>
+              <Typography variant="h6">Email:{data.email}</Typography>
+              <Typography variant="h6">barCode:{data.barCode}</Typography>
             </>
           ))
         ) : (
           <div></div>
         )}
       </ul>
+
 
       {!!displayIssueBooks && displayIssueBooks.length > 0 ? (
         <TableContainer component={Paper}>
@@ -231,7 +204,17 @@ function IssueBook() {
                     color: "background.paper",
                   }}
                 >
-                  books issued
+                  Book
+                </TableCell>
+
+                <TableCell
+                  sx={{
+                    fontSize: 18,
+                    bgcolor: "text.disabled",
+                    color: "background.paper",
+                  }}
+                >
+                  Book Barcode
                 </TableCell>
                 <TableCell
                   sx={{
@@ -248,10 +231,17 @@ function IssueBook() {
               {displayIssueBooks.map((data, index) => (
                 <TableRow key={index}>
                   <TableCell>{data.barCode}</TableCell>
-                  <TableCell>{data.issued_Books}</TableCell>
+                  <TableCell>{data.nameOfBook}</TableCell>
+                  <TableCell><Barcode
+                    value={data.issued_Books}
+                    renderer={"img"}
+                    height={30}
+                    width={1}
+                    fontSize={12}
+                  /></TableCell>
                   <TableCell>
                     <Button
-                      onClick={()=>handleCancel(data.barCode, data.issued_Books)}
+                      onClick={() => handleCancel(data.barCode, data.issued_Books)}
                     >
                       Delete
                     </Button>

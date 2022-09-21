@@ -19,6 +19,7 @@ import FormControl from "@mui/material/FormControl";
 import { addReturnedBook } from "../Book-Library/bookLibraryReducer";
 import { removeReturnDataFromStudentList } from "../student-List/StudentListReducers";
 import { useNavigate } from "react-router-dom";
+import { loginAuth } from "../loginAuthenticaton/loginAuthReducer";
 
 function StudentLibrary() {
   const dispatch = useDispatch();
@@ -42,6 +43,13 @@ function StudentLibrary() {
     barCode: "",
     totalbooknameIssuedTo: [],
   });
+
+  React.useEffect(()=>{
+    const value = JSON.parse(localStorage.getItem('loginValues'));
+    if (value) {
+    dispatch(loginAuth(JSON.parse(localStorage.getItem('loginValues'))));   
+   }
+   },[]);
 
   //navigate
   const goToAddStudent = () => {

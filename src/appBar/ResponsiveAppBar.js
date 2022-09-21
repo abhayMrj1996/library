@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
@@ -16,26 +15,18 @@ import { Drawer } from '@mui/material';
 import { useState } from 'react';
 import { clickLogout } from "../loginAuthenticaton/loginAuthReducer";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = (props) => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [logout_state] = useState(true);
   const dispatch = useDispatch();
+  const {initialLogIn }= useSelector((state) => state.loginAuth);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -44,7 +35,6 @@ const ResponsiveAppBar = (props) => {
 
   const handleLogout = () => {
     dispatch(clickLogout(logout_state));
-    setAnchorElNav(null);
     setAnchorElUser(null);
   }
 
@@ -76,15 +66,19 @@ const ResponsiveAppBar = (props) => {
                 >
                   HOME
                 </Button>
-                <Button
-                  onClick={props.goToLibrary}
-                  sx={{ my: 2, display: 'block' }}
-                >
-                  Library
-                </Button>
-                <Button
-                  onClick={props.goToStudentList}
-                  sx={{ my: 2, display: 'block' }}>Student-list</Button>
+                {!!initialLogIn.loginState &&
+                  <>
+                    <Button
+                      onClick={props.goToLibrary}
+                      sx={{ my: 2, display: 'block' }}
+                    >
+                      Library
+                    </Button>
+                    <Button
+                      onClick={props.goToStudentList}
+                      sx={{ my: 2, display: 'block' }}>Student-list</Button>
+                  </>
+                }
 
               </Box>
             </Drawer>
@@ -105,6 +99,8 @@ const ResponsiveAppBar = (props) => {
             >
               HOME
             </Button>
+            {!!initialLogIn.loginState &&
+            <>
             <Button
               onClick={props.goToLibrary}
               sx={{ my: 2, color: 'white', display: 'block' }}
@@ -113,7 +109,10 @@ const ResponsiveAppBar = (props) => {
             </Button>
             <Button
               onClick={props.goToStudentList}
-              sx={{ my: 2, color: 'white', display: 'block' }}>Student-list</Button>
+              sx={{ my: 2, color: 'white', display: 'block' }}>
+              Student-list
+            </Button>
+            </>}
 
           </Box>
 
@@ -141,7 +140,8 @@ const ResponsiveAppBar = (props) => {
             >
 
               <MenuItem >
-                <Button onClick={handleLogout}>Logout</Button>
+                {!!initialLogIn.loginState &&
+                  <Button onClick={handleLogout}>Logout</Button>}
               </MenuItem>
 
             </Menu>

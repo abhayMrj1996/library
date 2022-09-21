@@ -92,7 +92,7 @@ export const BookLibraryReducer = (state = initialState, action) => {
         case ADD_RETURN_BOOK:
             const returnDataToLibraty = [...state.initialBookList];
             let finalBookList
-            const search_for_book = action.payload.totalbooknameIssuedTo.forEach((book) => {
+            action.payload.totalbooknameIssuedTo.forEach((book) => {
                 let find_book_in_list = returnDataToLibraty.find((data)=>data.barCode === book);
                 if(find_book_in_list){
                     find_book_in_list.numberOfBooks = parseInt(find_book_in_list.numberOfBooks) + 1
