@@ -115,7 +115,7 @@ const ResponsiveAppBar = (props) => {
             </>}
 
           </Box>
-
+          {!!initialLogIn.loginState &&
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -138,14 +138,13 @@ const ResponsiveAppBar = (props) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-
-              <MenuItem >
-                {!!initialLogIn.loginState &&
-                  <Button onClick={handleLogout}>Logout</Button>}
+              <MenuItem >               
+                  <Button onClick={handleLogout}>Logout</Button>
+                  {/* <Button onClick={handleLogout}>Logout</Button> */}
               </MenuItem>
-
             </Menu>
           </Box>
+          }
         </Toolbar>
       </Container>
     </AppBar>
