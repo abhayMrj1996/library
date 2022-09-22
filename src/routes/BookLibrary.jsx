@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteRow } from "../Book-Library/bookLibraryReducer";
 import Button from "@mui/material/Button";
-import { MenuItem, Select, TextField, FormControl, InputLabel } from "@mui/material";
+import { MenuItem, Select, TextField, FormControl, InputLabel, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -220,13 +220,13 @@ function BookLibrary() {
         </Grid>
 
         <Grid xs={12} item>
-          <TableComponent
+        {!!pageData && pageData.length>0 ? <TableComponent
             data={pageData}
             tableID="book"
             handleClickOpen={handleClickOpen}
             HEADING={HEADING}
             otherData={otherData}
-          />
+          />:<Typography>Book not available!!</Typography>}
         </Grid>
 
         <Grid xs={12} item sx={{ textAlign: "center" }}>
@@ -234,7 +234,7 @@ function BookLibrary() {
             <ArrowBackIosIcon />
             prev
           </Button>
-          {page} - {Math.ceil(totalBookData.length / 5)}
+          {page} - {Math.ceil(totalBookData.length / numberOfDataPerPage)}
           <Button onClick={() => clickNext()} variant="contained">
             next
             <ArrowForwardIosIcon />
