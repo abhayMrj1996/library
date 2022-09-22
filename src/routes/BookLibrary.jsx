@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteRow } from "../Book-Library/bookLibraryReducer";
 import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
+import { MenuItem, Select, TextField, FormControl, InputLabel } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -27,15 +27,17 @@ function BookLibrary() {
   const [totalBookData, setTotalBookData] = useState([...displayBookData]);
   const [open, setOpen] = React.useState(false);
   const [list, setList] = useState();
+  const [page, setPage] = useState(1);
+  const [numberOfDataPerPage, setNumberOfDataPerPage] = useState(5);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     const value = JSON.parse(localStorage.getItem('loginValues'));
-    if (value) {    
-    dispatch(loginAuth(JSON.parse(localStorage.getItem('loginValues'))));   
-   }
-   },[]);
+    if (value) {
+      dispatch(loginAuth(JSON.parse(localStorage.getItem('loginValues'))));
+    }
+  }, []);
 
   // search book
   const handleSearchBook = (e) => {
@@ -48,9 +50,9 @@ function BookLibrary() {
   };
 
   //pagination
-  const [page, setPage] = useState(1);
-  let A = page * 5;
-  let B = A - 5;
+
+  let A = page * numberOfDataPerPage;
+  let B = A - numberOfDataPerPage;
   let pageData = totalBookData.slice(B, A);
 
   useEffect(() => {
@@ -63,9 +65,12 @@ function BookLibrary() {
   };
   const clickNext = () => {
     const pageCount =
-      page <= Math.ceil(totalBookData.length / 5) - 1 ? page + 1 : page;
+      page <= Math.ceil(totalBookData.length / numberOfDataPerPage) - 1 ? page + 1 : page;
     setPage(pageCount);
   };
+  const handleDataPerpage = (e) => {
+    setNumberOfDataPerPage(e.target.value)
+  }
 
   //delete
   const handleDelete = () => {
@@ -77,7 +82,7 @@ function BookLibrary() {
   const handleClickOpen = (rowId) => {
     const newBookList = [...displayBookData];
     const index = newBookList.findIndex((deleteID) => deleteID.id === rowId);
-    newBookList.splice(index, 1);  
+    newBookList.splice(index, 1);
     setList(newBookList);
     setOpen(true);
   };
@@ -128,7 +133,7 @@ function BookLibrary() {
     {
       key: "1666",
       label: "barCode",
-      render: (tableData) => {      
+      render: (tableData) => {
         return (
           <Barcode
             value={tableData.barCode}
@@ -234,6 +239,17 @@ function BookLibrary() {
             next
             <ArrowForwardIosIcon />
           </Button>
+          <FormControl sx={{ ml:1, minWidth: 40 }} size="small">           
+            <Select              
+              id="select"              
+              value={numberOfDataPerPage}
+              onChange={handleDataPerpage}>              
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={15}>15</MenuItem>
+            </Select>
+          </FormControl>
+
         </Grid>
       </Grid>
     </div>

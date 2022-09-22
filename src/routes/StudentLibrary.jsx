@@ -30,6 +30,7 @@ function StudentLibrary() {
   const [totalStudentData, setTotalStuentData] = useState(displayStudentData);
   const [page, setPage] = useState(1);
   const [open, setOpen] = React.useState(false);
+  const [numberOfDataPerPage, setNumberOfDataPerPage] = useState(5);
   const [issuedBooks, setIssuedBooks] = useState({
     first_name: "",
     last_name: "",
@@ -77,8 +78,8 @@ function StudentLibrary() {
 
   // pagination
 
-  let A = page * 5;
-  let B = A - 5;
+  let A = page * numberOfDataPerPage;
+  let B = A - numberOfDataPerPage;
   const pageData = totalStudentData.slice(B, A);
 
   const clickPrev = () => {
@@ -88,9 +89,12 @@ function StudentLibrary() {
 
   const clickNext = () => {
     const pageCount =
-      page <= Math.ceil(totalStudentData.length / 5) - 1 ? page + 1 : page;
+      page <= Math.ceil(totalStudentData.length / numberOfDataPerPage) - 1 ? page + 1 : page;
     setPage(pageCount);
   };
+  const handleDataPerpage = (e) => {
+    setNumberOfDataPerPage(e.target.value)
+  }
 
   // return book
   const handleClickOpen = (
@@ -323,6 +327,16 @@ function StudentLibrary() {
             next
             <ArrowForwardIosIcon />
           </Button>
+          <FormControl sx={{ ml:1, minWidth: 40 }} size="small">           
+            <Select              
+              id="select"              
+              value={numberOfDataPerPage}
+              onChange={handleDataPerpage}>              
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={15}>15</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
       </Grid>
     </div>

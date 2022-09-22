@@ -24,7 +24,7 @@ const LoginPage = () => {
   React.useEffect(()=>{
    const value = JSON.parse(localStorage.getItem('loginValues'));
    if (value) {
-   setValues(value);
+  
    dispatch(loginAuth(JSON.parse(localStorage.getItem('loginValues'))));   
   }
   },[]);

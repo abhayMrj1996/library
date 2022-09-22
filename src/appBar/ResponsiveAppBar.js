@@ -139,8 +139,7 @@ const ResponsiveAppBar = (props) => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem >               
-                  <Button onClick={handleLogout}>Logout</Button>
-                  {/* <Button onClick={handleLogout}>Logout</Button> */}
+                  <Button onClick={handleLogout}>Logout</Button>                  
               </MenuItem>
             </Menu>
           </Box>
