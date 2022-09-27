@@ -263,24 +263,7 @@ function StudentLibrary() {
                     <MenuItem value={data}>{data}</MenuItem>
                   ))}
               </Select>
-            </FormControl>
-            {/* <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-              <InputLabel id="demo-select-small">Select Book</InputLabel>
-              <Select
-                labelId="demo-select-small"
-                id="demo-select-small"
-                label="Select book"
-                onChange={handleBookSelect}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {!!issuedBooks &&
-                  issuedBooks.totalbooknameIssuedTo.map((data) => (
-                    <MenuItem value={data}>{data}</MenuItem>
-                  ))}
-              </Select>
-            </FormControl> */}
+            </FormControl>            
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -309,20 +292,20 @@ function StudentLibrary() {
           ></TextField>
         </Grid>
         <Grid xs={12} item>
-          <TableComponent
+         {!!pageData && pageData.length>0 ? <TableComponent
             data={pageData}
             tableID="student"
             HEADING={HEADING}
             handleClickOpen={handleClickOpen}
             otherData={otherData}
-          />
+          /> :<Typography>The student is not listed</Typography>}
         </Grid>
         <Grid xs={12} sx={{ textAlign: "center" }} item>
           <Button onClick={() => clickPrev()} variant="contained">
             <ArrowBackIosIcon />
             prev
           </Button>
-          {page} - 10
+          {page} - {numberOfDataPerPage}
           <Button onClick={() => clickNext()} variant="contained">
             next
             <ArrowForwardIosIcon />
