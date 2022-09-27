@@ -253,7 +253,7 @@ function IssueBook() {
           </Table>
         </TableContainer>
       ) : (
-        <h1></h1>
+        <h1>please scan the barcode</h1>
       )}
     </div>
   );
